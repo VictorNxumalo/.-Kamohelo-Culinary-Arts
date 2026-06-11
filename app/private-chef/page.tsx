@@ -103,10 +103,10 @@ export default function PrivateChefPage() {
                 <article className="card-light group h-full p-6">
                   <IconBox name={menu.icon} className="mb-4" size={20} />
                   <h3 className="brand-caps text-sm text-brand-gold">{menu.name}</h3>
-                  <p className="mt-2 font-body text-xs text-stone-500">{menu.courses}</p>
-                  <ul className="mt-4 space-y-2 border-t border-black/5 pt-4">
+                  <p className="mt-2 font-body text-xs text-brand-text-muted">{menu.courses}</p>
+                  <ul className="mt-4 space-y-2 border-t border-white/10 pt-4">
                     {menu.highlights.map((item) => (
-                      <li key={item} className="font-body text-sm font-light text-stone-600">
+                      <li key={item} className="font-body text-sm font-light text-brand-cream-muted">
                         {item}
                       </li>
                     ))}

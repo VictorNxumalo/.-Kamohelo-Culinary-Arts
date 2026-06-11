@@ -39,7 +39,7 @@ export default function RecipesPage() {
             <FadeIn>
               <div className="card-light mx-auto max-w-xl p-10 text-center">
                 <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-stone-600">
+                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
                   Recipes are being finalised by the chef. Check back soon or explore the{" "}
                   <Link href="/portfolio" className="text-brand-gold underline underline-offset-4">
                     culinary portfolio

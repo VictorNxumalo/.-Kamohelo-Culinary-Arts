@@ -33,7 +33,7 @@ export default function ConceptsPage() {
       <section className="section-light py-12 md:py-16">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <FadeIn>
-            <p className="font-body text-sm font-light text-stone-600">
+            <p className="font-body text-sm font-light text-brand-cream-muted">
               All concepts below are labelled <span className="text-brand-gold">Concept</span> —
               brands in active development, not yet operating as live businesses unless otherwise
               noted by the client.
@@ -66,7 +66,7 @@ export default function ConceptsPage() {
         <div className="mx-auto max-w-3xl px-6 text-center">
           <FadeIn>
             <SectionHeading title="Explore the Full Group" />
-            <p className="-mt-6 font-body text-sm font-light text-stone-600">
+            <p className="-mt-6 font-body text-sm font-light text-brand-cream-muted">
               See how these concepts fit within the broader Kamohelo Culinary Group portfolio.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">

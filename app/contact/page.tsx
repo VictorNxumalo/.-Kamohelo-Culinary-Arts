@@ -44,14 +44,14 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
           <FadeIn>
             <div className="card-light rounded-none p-8 md:p-12">
               <div className="text-center">
-                <h2 className="brand-caps text-lg text-brand-text-dark">Get in Touch</h2>
-                <p className="mx-auto mt-4 max-w-lg font-body text-sm font-light text-stone-600">
+                <h2 className="brand-caps text-lg text-brand-cream">Get in Touch</h2>
+                <p className="mx-auto mt-4 max-w-lg font-body text-sm font-light text-brand-cream-muted">
                   For inquiries about private dining, catering, consulting, or collaborations.
                   I typically respond within 24–48 hours.
                 </p>
               </div>
 
-              <div className="mt-10 flex flex-col items-stretch justify-center gap-6 border-y border-black/5 py-10 md:flex-row md:items-center md:gap-8">
+              <div className="mt-10 flex flex-col items-stretch justify-center gap-6 border-y border-white/10 py-10 md:flex-row md:items-center md:gap-8">
                 <a
                   href={`mailto:${CONTACT.email}`}
                   className="group flex flex-1 items-center gap-4 transition-colors duration-300"
@@ -59,12 +59,12 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   <IconBox name="mail" className="mb-0" />
                   <div className="text-left">
                     <span className="sub-label text-brand-gold">Email</span>
-                    <p className="mt-1 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
+                    <p className="mt-1 font-body text-sm text-brand-cream group-hover:text-brand-gold">
                       {CONTACT.email}
                     </p>
                   </div>
                 </a>
-                <div className="hidden h-12 w-px bg-black/10 md:block" />
+                <div className="hidden h-12 w-px bg-white/10 md:block" />
                 <a
                   href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
                   className="group flex flex-1 items-center gap-4"
@@ -72,7 +72,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                   <IconBox name="phone" className="mb-0" />
                   <div className="text-left">
                     <span className="sub-label text-brand-gold">Phone</span>
-                    <p className="mt-1 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
+                    <p className="mt-1 font-body text-sm text-brand-cream group-hover:text-brand-gold">
                       {CONTACT.phone}
                     </p>
                   </div>
@@ -80,7 +80,7 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
               </div>
 
               <div className="mt-12">
-                <h3 className="brand-caps text-center text-xs text-brand-text-dark">
+                <h3 className="brand-caps text-center text-xs text-brand-cream">
                   How Can We Help?
                 </h3>
                 <div className="mt-6 grid gap-4 sm:grid-cols-2">
@@ -88,14 +88,14 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                     <Link
                       key={item.type}
                       href={`/contact?type=${item.type}`}
-                      className="card-light group flex items-start gap-4 border border-black/5 p-4 transition-colors hover:border-brand-gold/40"
+                      className="card-light group flex items-start gap-4 border border-white/10 p-4 transition-colors hover:border-brand-gold/40"
                     >
                       <IconBox name={item.icon} className="mb-0 h-10 w-10" size={18} />
                       <div>
-                        <h4 className="brand-caps text-xs text-brand-text-dark group-hover:text-brand-gold">
+                        <h4 className="brand-caps text-xs text-brand-cream group-hover:text-brand-gold">
                           {item.title}
                         </h4>
-                        <p className="mt-1 font-body text-xs font-light text-stone-600">
+                        <p className="mt-1 font-body text-xs font-light text-brand-cream-muted">
                           {item.description}
                         </p>
                       </div>
@@ -112,15 +112,15 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 />
               </div>
 
-              <div className="mt-12 border-t border-black/5 pt-10">
-                <h4 className="brand-caps text-center text-xs text-brand-text-dark">
+              <div className="mt-12 border-t border-white/10 pt-10">
+                <h4 className="brand-caps text-center text-xs text-brand-cream">
                   What to Include
                 </h4>
                 <ul className="mt-6 grid gap-4 sm:grid-cols-2">
                   {CONTACT_TIPS.map((tip) => (
                     <li
                       key={tip.text}
-                      className="flex items-center justify-center gap-2 text-center font-body text-sm font-light text-stone-600 sm:justify-start"
+                      className="flex items-center justify-center gap-2 text-center font-body text-sm font-light text-brand-cream-muted sm:justify-start"
                     >
                       <Icon name={tip.icon} size={16} className="shrink-0 text-brand-gold" />
                       {tip.text}

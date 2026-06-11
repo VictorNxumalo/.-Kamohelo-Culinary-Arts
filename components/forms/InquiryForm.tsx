@@ -78,7 +78,7 @@ export function InquiryForm({
           <Icon name="check" size={22} />
         </div>
         <p className="brand-caps text-sm text-brand-gold">Thank You</p>
-        <p className="mt-4 font-body text-sm font-light text-stone-600">
+        <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
           Your inquiry has been received. We typically respond within 24–48 hours.
         </p>
         <button
@@ -95,7 +95,7 @@ export function InquiryForm({
   return (
     <form onSubmit={handleSubmit} className="space-y-6" noValidate>
       <div>
-        <label htmlFor="inquiryType" className="sub-label text-stone-500">
+        <label htmlFor="inquiryType" className="sub-label text-brand-text-muted">
           <IconLabel name={INQUIRY_TYPE_ICONS[inquiryType]}>Inquiry Type</IconLabel>
         </label>
         <select
@@ -115,7 +115,7 @@ export function InquiryForm({
 
       <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <label htmlFor="name" className="sub-label text-stone-500">
+          <label htmlFor="name" className="sub-label text-brand-text-muted">
             <IconLabel name="user">
               Name <span className="text-brand-gold">*</span>
             </IconLabel>
@@ -131,7 +131,7 @@ export function InquiryForm({
           />
         </div>
         <div>
-          <label htmlFor="email" className="sub-label text-stone-500">
+          <label htmlFor="email" className="sub-label text-brand-text-muted">
             <IconLabel name="mail">
               Email <span className="text-brand-gold">*</span>
             </IconLabel>
@@ -149,7 +149,7 @@ export function InquiryForm({
       </div>
 
       <div>
-        <label htmlFor="phone" className="sub-label text-stone-500">
+        <label htmlFor="phone" className="sub-label text-brand-text-muted">
           <IconLabel name="phone">Phone</IconLabel>
         </label>
         <input
@@ -165,13 +165,13 @@ export function InquiryForm({
       {showEventFields && (
         <div className="grid gap-6 md:grid-cols-3">
           <div>
-            <label htmlFor="eventDate" className="sub-label text-stone-500">
+            <label htmlFor="eventDate" className="sub-label text-brand-text-muted">
               <IconLabel name="calendar">Event Date</IconLabel>
             </label>
             <input id="eventDate" name="eventDate" type="date" className="input-light mt-2" />
           </div>
           <div>
-            <label htmlFor="guestCount" className="sub-label text-stone-500">
+            <label htmlFor="guestCount" className="sub-label text-brand-text-muted">
               <IconLabel name="users">Guest Count</IconLabel>
             </label>
             <input
@@ -183,7 +183,7 @@ export function InquiryForm({
             />
           </div>
           <div>
-            <label htmlFor="location" className="sub-label text-stone-500">
+            <label htmlFor="location" className="sub-label text-brand-text-muted">
               <IconLabel name="map-pin">Location</IconLabel>
             </label>
             <input
@@ -198,7 +198,7 @@ export function InquiryForm({
       )}
 
       <div>
-        <label htmlFor="message" className="sub-label text-stone-500">
+        <label htmlFor="message" className="sub-label text-brand-text-muted">
           <IconLabel name="message">
             Message <span className="text-brand-gold">*</span>
           </IconLabel>

@@ -34,10 +34,10 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
       </div>
       <div className="p-6">
         <p className="sub-label text-brand-gold">{formatCategoryLabel(recipe.category)}</p>
-        <h3 className="brand-caps mt-2 text-sm text-brand-text-dark transition-colors duration-300 group-hover:text-brand-gold">
+        <h3 className="brand-caps mt-2 text-sm text-brand-cream transition-colors duration-300 group-hover:text-brand-gold">
           {recipe.title}
         </h3>
-        <p className="mt-3 line-clamp-2 font-body text-sm font-light text-stone-600">
+        <p className="mt-3 line-clamp-2 font-body text-sm font-light text-brand-cream-muted">
           {recipe.story.replace(/\*\*ASSUMED:\*\*[\s\S]*/, "").trim()}
         </p>
       </div>

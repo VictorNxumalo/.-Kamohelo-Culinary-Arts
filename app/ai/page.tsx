@@ -41,7 +41,7 @@ export default async function AiPage({ searchParams }: AiPageProps) {
       <section className="section-light py-16 md:py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <FadeIn>
-            <p className="font-body text-sm font-light text-stone-600">
+            <p className="font-body text-sm font-light text-brand-cream-muted">
               Answers are drawn from indexed recipes, techniques, blog posts, ventures, and
               services on this site. For bookings, visit{" "}
               <a href="/private-chef" className="text-brand-gold underline underline-offset-4">

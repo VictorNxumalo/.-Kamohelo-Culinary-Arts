@@ -100,7 +100,7 @@ export default function HomePage() {
             </FadeIn>
             <FadeIn delay={100}>
               <div className="gold-border-accent card-light p-8">
-                <ul className="space-y-4 font-body text-sm font-light text-stone-600 md:text-base">
+                <ul className="space-y-4 font-body text-sm font-light text-brand-cream-muted md:text-base">
                   {ABOUT_HIGHLIGHTS.map((item) => (
                     <li key={item.text} className="flex items-start gap-3">
                       <Icon name={item.icon} size={18} className="mt-0.5 shrink-0 text-brand-gold" />
@@ -115,7 +115,7 @@ export default function HomePage() {
       </section>
 
       {/* Services */}
-      <section id="services" className="section-light border-t border-black/5 py-20 md:py-24">
+      <section id="services" className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading
@@ -129,8 +129,8 @@ export default function HomePage() {
               const inner = (
                 <>
                   <IconBox name={service.icon} />
-                  <h3 className="brand-caps text-sm text-brand-text-dark">{service.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-stone-600">
+                  <h3 className="brand-caps text-sm text-brand-cream">{service.title}</h3>
+                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
                     {service.description}
                   </p>
                 </>
@@ -296,7 +296,7 @@ export default function HomePage() {
       </section>
 
       {/* Journal teaser */}
-      <section className="section-light border-t border-black/5 py-20 md:py-24">
+      <section className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading

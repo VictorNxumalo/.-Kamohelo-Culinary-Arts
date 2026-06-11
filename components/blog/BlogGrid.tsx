@@ -32,7 +32,7 @@ export function BlogGrid({ posts }: BlogGridProps) {
       </div>
 
       {filteredPosts.length === 0 && (
-        <p className="mt-12 text-center font-body text-sm text-stone-500">
+        <p className="mt-12 text-center font-body text-sm text-brand-text-muted">
           No posts in this category yet — check back soon.
         </p>
       )}

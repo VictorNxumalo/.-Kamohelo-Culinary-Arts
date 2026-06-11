@@ -38,7 +38,7 @@ export default function BlogPage() {
             <FadeIn>
               <div className="card-light mx-auto max-w-xl p-10 text-center">
                 <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-stone-600">
+                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
                   Journal posts are in preparation. Follow on Instagram for updates.
                 </p>
               </div>

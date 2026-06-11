@@ -11,10 +11,11 @@
   --color-cream: #f5f5f5;
   --color-cream-muted: #e6e0d7;
   --color-surface-dark: #1a1a1a;
-  --color-surface-light: #fafaf8;
+  --color-surface-elevated: #161616;
+  --color-surface-warm: #1a1816;
+  --color-surface-card: #1e1c18;
   --color-text-on-dark: #f5f5f5;
   --color-text-muted: #a8a29e;
-  --color-text-on-light: #1a1a1a;
   --header-height: 72px;
 }
 
@@ -25,9 +26,13 @@
   }
 
   body {
-    @apply font-body text-brand-text-dark antialiased;
-    background: linear-gradient(180deg, #f3efe8 0%, #fafaf8 40%, #f7f4ef 100%);
+    @apply font-body text-brand-cream antialiased;
+    background-color: var(--color-bg-deep);
+    background-image:
+      radial-gradient(ellipse 100% 80% at 50% -20%, rgba(198, 162, 101, 0.08) 0%, transparent 55%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
     background-attachment: fixed;
+    background-blend-mode: overlay, normal;
   }
 
   @keyframes pulseGold {
@@ -125,15 +130,10 @@
     z-index: 1;
   }
 
-  /* Warm premium light sections — less flat than solid cream */
+  /* Elevated dark band — alternates depth with .section-dark (same palette, warmer lift) */
   .section-light {
-    @apply relative overflow-hidden text-brand-text-dark;
-    background: linear-gradient(
-      165deg,
-      #f8f4ed 0%,
-      #fafaf8 35%,
-      #f5f1ea 100%
-    );
+    @apply relative overflow-hidden bg-brand-grain text-brand-cream;
+    background-color: var(--color-surface-elevated);
   }
 
   .section-light::before {
@@ -141,8 +141,10 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.5;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background:
+      radial-gradient(ellipse 70% 45% at 85% 0%, rgba(198, 162, 101, 0.1) 0%, transparent 50%),
+      radial-gradient(ellipse 50% 35% at 10% 100%, rgba(198, 162, 101, 0.05) 0%, transparent 45%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02) 0%, transparent 40%);
   }
 
   .section-light > * {
@@ -261,10 +263,6 @@
     @apply hover:border-brand-gold hover:bg-white/5 hover:text-brand-gold hover:shadow-gold-sm;
   }
 
-  .section-light .btn-secondary {
-    @apply border-brand-gold/40 text-brand-text-dark hover:bg-brand-gold/5 hover:text-brand-gold;
-  }
-
   .card-dark {
     @apply border border-white/10 bg-brand-surface/75 backdrop-blur-md;
     @apply transition-all duration-500 ease-premium;
@@ -272,9 +270,10 @@
   }
 
   .card-light {
-    @apply relative border border-stone-200/80 bg-white/90 shadow-sm backdrop-blur-sm;
+    @apply relative border border-white/10 bg-brand-surface/80 backdrop-blur-md;
     @apply transition-all duration-500 ease-premium;
-    @apply hover:-translate-y-1.5 hover:border-brand-gold/30 hover:shadow-card-lift-light;
+    @apply hover:-translate-y-1 hover:border-brand-gold/35 hover:shadow-card-lift;
+    background-color: color-mix(in srgb, var(--color-surface-card) 88%, transparent);
   }
 
   .card-light::before {
@@ -284,7 +283,7 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(198, 162, 101, 0.35), transparent);
+    background: linear-gradient(90deg, transparent, rgba(198, 162, 101, 0.4), transparent);
     opacity: 0;
     transition: opacity 0.5s ease-premium;
   }
@@ -397,7 +396,7 @@
   }
 
   .input-ask {
-    @apply border border-white/15 bg-brand-cream px-5 py-4 font-body text-sm text-brand-text-dark placeholder:text-stone-400 outline-none transition-all duration-300;
+    @apply w-full border border-white/15 bg-brand-surface px-5 py-4 font-body text-sm text-brand-cream placeholder:text-brand-text-muted outline-none transition-all duration-300;
   }
 
   .input-ask:focus {
@@ -405,15 +404,20 @@
   }
 
   .input-light {
-    @apply w-full border border-stone-200 bg-stone-50 px-4 py-3 font-body text-sm text-brand-text-dark placeholder:text-stone-400 outline-none transition-all duration-300;
+    @apply w-full border border-white/10 bg-brand-surface/90 px-4 py-3 font-body text-sm text-brand-cream placeholder:text-brand-text-muted outline-none transition-all duration-300;
   }
 
   .input-light:focus {
-    @apply border-brand-gold ring-2 ring-brand-gold/20;
+    @apply border-brand-gold ring-2 ring-brand-gold/25;
+  }
+
+  .input-light option {
+    background-color: var(--color-surface-dark);
+    color: var(--color-cream);
   }
 
   .filter-pill {
-    @apply tap-scale cursor-pointer border border-brand-gold bg-transparent px-5 py-2.5 font-display text-xs font-light uppercase tracking-wide text-brand-text-dark transition-all duration-300;
+    @apply tap-scale cursor-pointer border border-brand-gold/50 bg-transparent px-5 py-2.5 font-display text-xs font-light uppercase tracking-wide text-brand-cream-muted transition-all duration-300;
   }
 
   .filter-pill:hover,

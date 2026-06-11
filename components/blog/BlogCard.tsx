@@ -34,15 +34,15 @@ export function BlogCard({ post }: BlogCardProps) {
           <span className="sub-label text-brand-gold">{formatBlogCategory(post.category)}</span>
           <time
             dateTime={post.date}
-            className="font-body text-[10px] uppercase tracking-wide text-stone-400"
+            className="font-body text-[10px] uppercase tracking-wide text-brand-text-muted"
           >
             {formatPostDate(post.date)}
           </time>
         </div>
-        <h3 className="brand-caps mt-3 text-sm text-brand-text-dark transition-colors duration-300 group-hover:text-brand-gold">
+        <h3 className="brand-caps mt-3 text-sm text-brand-cream transition-colors duration-300 group-hover:text-brand-gold">
           {post.title}
         </h3>
-        <p className="mt-3 line-clamp-3 font-body text-sm font-light text-stone-600">
+        <p className="mt-3 line-clamp-3 font-body text-sm font-light text-brand-cream-muted">
           {post.excerpt}
         </p>
         <span className="mt-4 inline-block font-display text-[10px] uppercase tracking-label text-brand-gold opacity-0 transition-all duration-300 group-hover:opacity-100">

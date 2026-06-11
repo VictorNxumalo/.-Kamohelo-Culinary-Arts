@@ -34,7 +34,7 @@ export function GalleryGrid({ items = GALLERY_ITEMS }: GalleryGridProps) {
       </div>
 
       {filteredItems.length === 0 && (
-        <p className="mt-12 text-center font-body text-sm text-stone-500">
+        <p className="mt-12 text-center font-body text-sm text-brand-text-muted">
           No dishes in this category yet.
         </p>
       )}

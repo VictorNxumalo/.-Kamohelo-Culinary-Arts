@@ -32,7 +32,7 @@ export function RecipeGrid({ recipes }: RecipeGridProps) {
       </div>
 
       {filteredRecipes.length === 0 && (
-        <p className="mt-12 text-center font-body text-sm text-stone-500">
+        <p className="mt-12 text-center font-body text-sm text-brand-text-muted">
           No recipes in this category yet — check back as the library grows.
         </p>
       )}

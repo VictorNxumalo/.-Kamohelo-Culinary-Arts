@@ -8,6 +8,7 @@ type FormSectionProps = {
   defaultType: InquiryType;
   sourcePage: string;
   submitLabel?: string;
+  /** @deprecated All form sections use dark styling */
   dark?: boolean;
   showEventFields?: boolean;
 };
@@ -18,29 +19,20 @@ export function FormSection({
   defaultType,
   sourcePage,
   submitLabel,
-  dark = false,
   showEventFields = true,
 }: FormSectionProps) {
   return (
-    <section className={dark ? "section-dark py-20 md:py-24" : "section-light py-20 md:py-24"}>
+    <section className="section-dark py-20 md:py-24">
       <div className="mx-auto max-w-3xl px-6">
         <FadeIn>
-          <h2
-            className={`brand-caps text-center text-xl md:text-2xl ${
-              dark ? "text-brand-cream" : "text-brand-text-dark"
-            }`}
-          >
+          <h2 className="brand-caps text-center text-xl text-brand-cream md:text-2xl">
             {title}
           </h2>
           <div className="gold-rule-wide mt-6" />
-          <p
-            className={`mx-auto mt-6 max-w-lg text-center font-body text-sm font-light ${
-              dark ? "text-brand-cream-muted" : "text-stone-600"
-            }`}
-          >
+          <p className="mx-auto mt-6 max-w-lg text-center font-body text-sm font-light text-brand-cream-muted">
             {description}
           </p>
-          <div className="card-light mt-10 p-8 md:p-10">
+          <div className="card-dark mt-10 p-8 md:p-10">
             <InquiryForm
               defaultType={defaultType}
               sourcePage={sourcePage}

@@ -103,11 +103,11 @@ export default function CraftPage() {
               <FadeIn key={skill.title} delay={i * 80}>
                 <article className="card-light group h-full p-8 transition-shadow duration-500 hover:shadow-md">
                   <IconBox name={skill.icon} />
-                  <h3 className="brand-caps text-sm text-brand-text-dark">{skill.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-stone-600">
+                  <h3 className="brand-caps text-sm text-brand-cream">{skill.title}</h3>
+                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
                     {skill.description}
                   </p>
-                  <div className="mt-6 flex justify-between border-t border-black/5 pt-4 font-body text-xs text-stone-500">
+                  <div className="mt-6 flex justify-between border-t border-white/10 pt-4 font-body text-xs text-brand-text-muted">
                     <span>{skill.meta[0]}</span>
                     <span>{skill.meta[1]}</span>
                   </div>
@@ -130,11 +130,11 @@ export default function CraftPage() {
                 </div>
               </div>
               <blockquote className="border-l-2 border-brand-gold pl-6">
-                <p className="font-body text-xl font-light italic leading-relaxed text-brand-text-dark md:text-2xl">
+                <p className="font-body text-xl font-light italic leading-relaxed text-brand-cream md:text-2xl">
                   Mastery is not a destination, but a relationship with repetition — where hands learn what
                   words cannot teach.
                 </p>
-                <p className="mt-6 font-body text-sm font-light text-stone-600">
+                <p className="mt-6 font-body text-sm font-light text-brand-cream-muted">
                   Every skill shown is the result of deliberate practice and formal training at the
                   International Hotel School.
                 </p>
@@ -205,7 +205,7 @@ export default function CraftPage() {
           <FadeIn>
             <div className="card-light p-8 md:p-12">
               <div className="flex flex-col items-center gap-8 md:flex-row">
-                <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-full border-2 border-brand-gold/30 bg-white p-4">
+                <div className="flex h-32 w-32 shrink-0 items-center justify-center rounded-full border-2 border-brand-gold/30 bg-brand-surface/40 p-4">
                   <Image
                     src="/assets/education/ihs-logo.webp"
                     alt={`${EDUCATION.institution} logo`}
@@ -216,13 +216,13 @@ export default function CraftPage() {
                 </div>
                 <div className="text-center md:text-left">
                   <span className="sub-label text-brand-gold">Formal Education</span>
-                  <h3 className="brand-caps mt-3 text-lg text-brand-text-dark">
+                  <h3 className="brand-caps mt-3 text-lg text-brand-cream">
                     {EDUCATION.institution}
                   </h3>
-                  <p className="mt-3 font-body text-sm font-light text-stone-600">
+                  <p className="mt-3 font-body text-sm font-light text-brand-cream-muted">
                     {EDUCATION.qualification}
                   </p>
-                  <p className="mt-4 font-body text-sm text-stone-500">{EDUCATION.dates} · South Africa</p>
+                  <p className="mt-4 font-body text-sm text-brand-text-muted">{EDUCATION.dates} · South Africa</p>
                   <a
                     href={EDUCATION.url}
                     target="_blank"
@@ -239,11 +239,11 @@ export default function CraftPage() {
       </section>
 
       {/* CTA */}
-      <section className="section-light border-t border-black/5 py-20 md:py-24">
+      <section className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <FadeIn>
             <SectionHeading title="Skill Meets Story" />
-            <p className="mx-auto -mt-6 max-w-xl font-body text-base font-light text-stone-600">
+            <p className="mx-auto -mt-6 max-w-xl font-body text-base font-light text-brand-cream-muted">
               Every technique shown translates to exceptional dining experiences — where precision becomes
               pleasure.
             </p>

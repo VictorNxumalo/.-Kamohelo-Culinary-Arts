@@ -45,7 +45,7 @@ export default function TechniquesPage() {
             <FadeIn>
               <div className="card-light mx-auto max-w-xl p-10 text-center">
                 <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-stone-600">
+                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
                   Technique guides are being finalised. Browse the{" "}
                   <Link href="/recipes" className="text-brand-gold underline underline-offset-4">
                     recipe library
@@ -63,12 +63,12 @@ export default function TechniquesPage() {
                   className="card-light group block h-full p-6 transition-shadow hover:shadow-md"
                 >
                   {showDraftBadge(technique.draft) && (
-                    <span className="sub-label text-stone-400">Draft</span>
+                    <span className="sub-label text-brand-text-muted">Draft</span>
                   )}
-                  <h2 className="brand-caps mt-2 text-sm text-brand-text-dark group-hover:text-brand-gold">
+                  <h2 className="brand-caps mt-2 text-sm text-brand-cream group-hover:text-brand-gold">
                     {technique.title}
                   </h2>
-                  <p className="mt-3 font-body text-sm font-light text-stone-600">
+                  <p className="mt-3 font-body text-sm font-light text-brand-cream-muted">
                     {technique.summary}
                   </p>
                   <p className="sub-label mt-4 text-brand-gold">Read technique →</p>

@@ -16,15 +16,16 @@ export function FeatureCard({
   title,
   description,
   className = "",
-  variant = "light",
-  titleClassName = "brand-caps text-sm text-brand-text-dark",
-  descriptionClassName = "mt-3 font-body text-sm font-light leading-relaxed text-stone-600",
+  variant = "dark",
+  titleClassName = "brand-caps text-sm text-brand-cream",
+  descriptionClassName = "mt-3 font-body text-sm font-light leading-relaxed text-brand-cream-muted",
 }: FeatureCardProps) {
-  const cardClass = variant === "dark" ? "card-dark group p-6" : "card-light group p-6";
+  const cardClass =
+    variant === "dark" ? "card-dark group p-6" : "card-light group p-6";
 
   return (
     <article className={`${cardClass} h-full ${className}`}>
-      <IconBox name={icon} variant={variant} />
+      <IconBox name={icon} variant="dark" />
       <h3 className={titleClassName}>{title}</h3>
       <p className={descriptionClassName}>{description}</p>
     </article>

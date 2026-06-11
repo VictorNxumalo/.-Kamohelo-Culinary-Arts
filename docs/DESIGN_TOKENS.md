@@ -2,7 +2,7 @@
 
 **Phase 1+ authority:** Logo-derived tokens (below)  
 **Legacy reference:** Prototype tokens from `legacy/index.html`, `legacy/showcase.html` — **deprecated for new UI**  
-**Gap:** Dark/light mode toggle — planned Phase 8
+**Theme:** Full dark site (no light mode toggle) — elegant luxury hospitality, chiaroscuro depth
 
 ---
 
@@ -33,18 +33,25 @@
 | `--color-gold-shadow` | `#8b6f3a` | Emboss shadow | Depth (optional) |
 | `--color-cream` | `#f5f5f5` | Refined from `#e6e0d7` cluster | Sub-labels, text on dark |
 | `--color-cream-muted` | `#e6e0d7` | Sampled cream cluster | Body on dark sections |
-| `--color-surface-dark` | `#1a1a1a` | — | Cards on dark bg + grain overlay |
-| `--color-surface-light` | `#fafaf8` | — | Alternating content bands |
-| `--color-text-on-dark` | `#f5f5f5` | — | Headings/body on dark |
-| `--color-text-muted` | `#a8a29e` | — | Secondary on dark |
-| `--color-text-on-light` | `#1a1a1a` | — | Headings/body on light |
+| `--color-surface-dark` | `#1a1a1a` | — | Base cards, inputs |
+| `--color-surface-elevated` | `#161616` | — | `.section-light` elevated bands |
+| `--color-surface-warm` | `#1a1816` | — | Warm dark accent surfaces |
+| `--color-surface-card` | `#1e1c18` | — | `.card-light` elevated cards |
+| `--color-text-on-dark` | `#f5f5f5` | — | Headings (`text-brand-cream`) |
+| `--color-text-muted` | `#a8a29e` | — | Secondary (`text-brand-text-muted`) |
 
-### Section contrast map (Phase 1)
+### Section contrast map (full dark — all pages)
 
-| Surface | Sections |
-|---------|----------|
-| **Dark + grain** | Header, home hero, ventures band, AI stub, about hero, vision, contact hero, footer |
-| **Light** | About preview, services, signature dishes, about journey/education/timeline, contact form card |
+Rhythm uses **depth**, not light vs dark bands:
+
+| Utility | Surface | Visual role |
+|---------|---------|-------------|
+| `.section-dark` | `#121212` + grain + gold radial glow | Base bands — hero, footer, primary content |
+| `.section-light` | `#161616` + warm gold lift | Elevated bands — services, portfolio grid, forms context |
+| `.card-dark` | `#1a1a1a` / 75% + blur | Standard cards on dark |
+| `.card-light` | `#1e1c18` + gold top rule on hover | Featured / grid cards (name retained; styled dark) |
+
+**No pure white backgrounds** anywhere. Body uses `#121212` + grain + subtle gold ambient.
 
 ### Typography (logo-aligned)
 

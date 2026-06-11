@@ -2,6 +2,7 @@ type SectionHeadingProps = {
   eyebrow?: string;
   title: string;
   description?: string;
+  /** @deprecated All sections are dark — kept for API compatibility */
   dark?: boolean;
   align?: "left" | "center";
   animateRule?: boolean;
@@ -11,7 +12,6 @@ export function SectionHeading({
   eyebrow,
   title,
   description,
-  dark = false,
   align = "center",
   animateRule = true,
 }: SectionHeadingProps) {
@@ -22,11 +22,7 @@ export function SectionHeading({
       {eyebrow && (
         <p className="sub-label mb-4 text-brand-gold">{eyebrow}</p>
       )}
-      <h2
-        className={`brand-caps text-2xl font-light md:text-3xl lg:text-4xl ${
-          dark ? "text-brand-cream" : "text-brand-text-dark"
-        }`}
-      >
+      <h2 className="brand-caps text-2xl font-light text-brand-cream md:text-3xl lg:text-4xl">
         {title}
       </h2>
       <div
@@ -35,11 +31,7 @@ export function SectionHeading({
         }`}
       />
       {description && (
-        <p
-          className={`mt-6 font-body text-base font-light leading-relaxed md:text-lg ${
-            dark ? "text-brand-cream-muted" : "text-stone-600"
-          }`}
-        >
+        <p className="mt-6 font-body text-base font-light leading-relaxed text-brand-cream-muted md:text-lg">
           {description}
         </p>
       )}

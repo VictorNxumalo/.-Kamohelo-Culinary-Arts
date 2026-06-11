@@ -59,7 +59,7 @@ export default function CateringPage() {
         </div>
       </section>
 
-      <section className="section-light border-t border-black/5 py-20 md:py-24">
+      <section className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading

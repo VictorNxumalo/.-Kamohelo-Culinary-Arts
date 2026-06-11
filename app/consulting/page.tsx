@@ -48,13 +48,13 @@ export default function ConsultingPage() {
                   title={service.title}
                   description={service.description}
                   className="gold-border-accent"
-                  descriptionClassName="mt-2 font-body text-sm font-light text-stone-600"
+                  descriptionClassName="mt-2 font-body text-sm font-light text-brand-cream-muted"
                 />
               </FadeIn>
             ))}
           </div>
           <FadeIn className="mt-12 text-center">
-            <p className="font-body text-sm font-light text-stone-600">
+            <p className="font-body text-sm font-light text-brand-cream-muted">
               Also exploring ghost kitchen and restaurant concepts under{" "}
               {BRAND.legal} —{" "}
               <Link href="/contact?type=general" className="text-brand-gold hover:underline">

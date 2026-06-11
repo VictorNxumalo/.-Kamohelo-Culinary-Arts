@@ -40,7 +40,7 @@ export default function AboutPage() {
                 title="From Training to the Line"
                 align="left"
               />
-              <div className="space-y-5 font-body text-base font-light leading-relaxed text-stone-600">
+              <div className="space-y-5 font-body text-base font-light leading-relaxed text-brand-cream-muted">
                 <p>
                   My path into professional kitchens began with formal education — learning classical
                   techniques, kitchen discipline, and the standards that define fine hospitality.
@@ -58,8 +58,8 @@ export default function AboutPage() {
             <FadeIn delay={100}>
               <div className="gold-border-accent">
                 <IconBox name="leaf" className="mb-4" />
-                <h3 className="brand-caps text-sm text-brand-text-dark">Culinary Philosophy</h3>
-                <p className="mt-4 font-body text-base font-light leading-relaxed text-stone-600">
+                <h3 className="brand-caps text-sm text-brand-cream">Culinary Philosophy</h3>
+                <p className="mt-4 font-body text-base font-light leading-relaxed text-brand-cream-muted">
                   Precision meets creativity. Every plate should tell a story — of ingredients respected,
                   technique refined, and hospitality felt. I believe in seasonality, consistency, and the
                   quiet discipline of a well-run kitchen.
@@ -71,7 +71,7 @@ export default function AboutPage() {
       </section>
 
       {/* Education */}
-      <section className="section-light border-t border-black/5 py-20 md:py-24">
+      <section className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading
@@ -84,7 +84,7 @@ export default function AboutPage() {
             <div className="card-light mx-auto max-w-4xl p-8 md:p-12">
               <div className="flex flex-col items-center gap-8 md:flex-row md:items-start">
                 <div className="shrink-0">
-                  <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-brand-gold/30 bg-white p-4">
+                  <div className="flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-brand-gold/30 bg-brand-surface/40 p-4">
                     <Image
                       src="/assets/education/ihs-logo.webp"
                       alt={`${EDUCATION.institution} logo`}
@@ -99,18 +99,18 @@ export default function AboutPage() {
                     <Icon name="graduation" size={16} className="text-brand-gold" />
                     <span className="sub-label text-brand-gold">Formal Education</span>
                   </div>
-                  <h3 className="brand-caps mt-3 text-xl text-brand-text-dark">
+                  <h3 className="brand-caps mt-3 text-xl text-brand-cream">
                     {EDUCATION.institution}
                   </h3>
-                  <p className="mt-3 font-body text-base font-light text-stone-600">
+                  <p className="mt-3 font-body text-base font-light text-brand-cream-muted">
                     {EDUCATION.qualification}
                   </p>
                   <div className="mt-6 flex flex-wrap justify-center gap-6 md:justify-start">
-                    <span className="inline-flex items-center gap-2 font-body text-sm text-stone-500">
+                    <span className="inline-flex items-center gap-2 font-body text-sm text-brand-text-muted">
                       <Icon name="calendar" size={14} className="text-brand-gold" />
                       {EDUCATION.dates}
                     </span>
-                    <span className="inline-flex items-center gap-2 font-body text-sm text-stone-500">
+                    <span className="inline-flex items-center gap-2 font-body text-sm text-brand-text-muted">
                       <Icon name="map-pin" size={14} className="text-brand-gold" />
                       South Africa
                     </span>
@@ -150,13 +150,13 @@ export default function AboutPage() {
                       <div className="flex items-start gap-4">
                         <IconBox name={item.icon} className="mb-0 h-10 w-10" size={18} />
                         <div>
-                        <h3 className="brand-caps text-sm text-brand-text-dark">{item.title}</h3>
+                        <h3 className="brand-caps text-sm text-brand-cream">{item.title}</h3>
                         <p className="mt-1 font-body text-sm font-medium text-brand-gold">{item.org}</p>
                         </div>
                       </div>
-                      <span className="sub-label text-stone-400">{item.period}</span>
+                      <span className="sub-label text-brand-text-muted">{item.period}</span>
                     </div>
-                    <p className="mt-4 font-body text-sm font-light leading-relaxed text-stone-600">
+                    <p className="mt-4 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
                       {item.description}
                     </p>
                   </div>

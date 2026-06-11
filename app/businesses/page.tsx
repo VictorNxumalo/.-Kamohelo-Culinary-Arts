@@ -39,7 +39,7 @@ export default function BusinessesPage() {
       <section className="section-light py-16 md:py-20">
         <div className="mx-auto max-w-4xl px-6 text-center">
           <FadeIn>
-            <p className="font-body text-base font-light leading-relaxed text-stone-600">
+            <p className="font-body text-base font-light leading-relaxed text-brand-cream-muted">
               {BRAND.visual} brings together chef-led services and entrepreneurial concepts under one
               umbrella — combining craftsmanship, hospitality, and scalable food businesses.
             </p>
@@ -48,7 +48,7 @@ export default function BusinessesPage() {
       </section>
 
       {/* Restaurants */}
-      <section id="restaurants" className="section-light border-t border-black/5 py-20 md:py-24">
+      <section id="restaurants" className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading
@@ -69,7 +69,7 @@ export default function BusinessesPage() {
             <FadeIn>
               <div className="card-light mx-auto max-w-2xl p-8 text-center">
                 <p className="sub-label text-brand-gold">In Development</p>
-                <p className="mt-4 font-body text-sm font-light text-stone-600">
+                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
                   Brick-and-mortar restaurant concepts are in early development. Explore our ghost
                   kitchen brands below or view the full concepts showcase.
                 </p>
@@ -119,7 +119,7 @@ export default function BusinessesPage() {
             id={divisionId}
             className={
               isLight
-                ? "section-light border-t border-black/5 py-20 md:py-24"
+                ? "section-light border-t border-white/10 py-20 md:py-24"
                 : "section-dark py-20 md:py-24"
             }
           >
@@ -149,7 +149,7 @@ export default function BusinessesPage() {
       })}
 
       {/* Future Ventures */}
-      <section id="future-ventures" className="section-light border-t border-black/5 py-20 md:py-24">
+      <section id="future-ventures" className="section-light border-t border-white/10 py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
             <SectionHeading
@@ -163,8 +163,8 @@ export default function BusinessesPage() {
               <FadeIn key={venture.title} delay={i * 60}>
                 <article className="card-light gold-border-accent p-6">
                   <span className="sub-label text-brand-gold">{venture.status}</span>
-                  <h3 className="brand-caps mt-3 text-sm text-brand-text-dark">{venture.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light text-stone-600">
+                  <h3 className="brand-caps mt-3 text-sm text-brand-cream">{venture.title}</h3>
+                  <p className="mt-3 font-body text-sm font-light text-brand-cream-muted">
                     {venture.description}
                   </p>
                 </article>
