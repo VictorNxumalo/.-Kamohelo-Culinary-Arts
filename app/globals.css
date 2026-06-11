@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Logo-derived (sampled: gold #c6a265, cream #e6e0d7, dark #141414) */
+  --color-bg-deep: #121212;
+  --color-gold: #c6a265;
+  --color-gold-hover: #d4b47a;
+  --color-gold-highlight: #e2c285;
+  --color-gold-shadow: #8b6f3a;
+  --color-cream: #f5f5f5;
+  --color-cream-muted: #e6e0d7;
+  --color-surface-dark: #1a1a1a;
+  --color-surface-light: #fafaf8;
+  --color-text-on-dark: #f5f5f5;
+  --color-text-muted: #a8a29e;
+  --color-text-on-light: #1a1a1a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply font-body text-brand-text-dark antialiased;
+    background-color: var(--color-surface-light);
+  }
+}
+
+@layer components {
+  .brand-caps {
+    @apply font-display uppercase tracking-brand;
+  }
+
+  .sub-label {
+    @apply font-display text-xs font-light uppercase tracking-label md:text-sm;
+  }
+
+  .bg-brand-grain {
+    background-color: var(--color-bg-deep);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+    background-blend-mode: overlay;
+  }
+
+  .gold-rule {
+    @apply h-px w-16 bg-brand-gold;
+  }
+
+  .gold-rule-wide {
+    @apply mx-auto h-px w-24 bg-brand-gold;
+  }
+
+  .nav-link {
+    @apply relative font-display text-sm font-light uppercase tracking-wide text-brand-cream transition-colors duration-300;
+  }
+
+  .nav-link::after {
+    content: "";
+    @apply absolute -bottom-1 left-0 h-px w-0 bg-brand-gold transition-all duration-300;
+  }
+
+  .nav-link:hover {
+    @apply text-brand-gold;
+  }
+
+  .nav-link:hover::after,
+  .nav-link-active::after {
+    @apply w-full;
+  }
+
+  .nav-link-active {
+    @apply text-brand-gold;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center border border-brand-gold bg-transparent px-8 py-3.5 font-display text-sm font-medium uppercase tracking-wide text-brand-gold transition-all duration-300;
+  }
+
+  .btn-primary:hover {
+    @apply bg-brand-gold text-brand-bg;
+  }
+
+  .btn-primary-solid {
+    @apply inline-flex items-center justify-center bg-brand-gold px-8 py-3.5 font-display text-sm font-medium uppercase tracking-wide text-brand-bg transition-all duration-300;
+  }
+
+  .btn-primary-solid:hover {
+    @apply bg-brand-gold-hover;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center border border-white/20 px-8 py-3.5 font-display text-sm font-light uppercase tracking-wide text-brand-cream transition-all duration-300;
+  }
+
+  .btn-secondary:hover {
+    @apply border-brand-gold text-brand-gold;
+  }
+
+  .section-dark {
+    @apply bg-brand-grain text-brand-cream;
+  }
+
+  .section-light {
+    @apply bg-brand-light text-brand-text-dark;
+  }
+
+  .card-dark {
+    @apply border border-white/5 bg-brand-surface/80 backdrop-blur-sm;
+  }
+
+  .card-light {
+    @apply border border-black/5 bg-white shadow-sm;
+  }
+
+  .gold-border-accent {
+    @apply border-l-2 border-brand-gold pl-6;
+  }
+
+  .timeline-dot::before {
+    content: "";
+    @apply absolute -left-[1.65rem] top-2 h-3 w-3 rounded-full bg-brand-gold;
+    box-shadow: 0 0 12px rgba(198, 162, 101, 0.45);
+  }
+
+  .fade-section {
+    @apply opacity-0 translate-y-4 transition-all duration-[900ms] ease-out;
+  }
+
+  .fade-section.visible {
+    @apply opacity-100 translate-y-0;
+  }
+
+  .input-brand {
+    @apply w-full border border-white/10 bg-brand-surface px-4 py-3 font-body text-sm text-brand-cream placeholder:text-brand-text-muted outline-none transition-colors duration-300;
+  }
+
+  .input-brand:focus {
+    @apply border-brand-gold;
+  }
+
+  .input-ask {
+    @apply border border-white/15 bg-brand-cream px-5 py-4 font-body text-sm text-brand-text-dark placeholder:text-stone-400 outline-none transition-colors duration-300;
+  }
+
+  .input-ask:focus {
+    @apply border-brand-gold ring-2 ring-brand-gold/30;
+  }
+
+  .input-light {
+    @apply w-full border border-stone-200 bg-stone-50 px-4 py-3 font-body text-sm text-brand-text-dark placeholder:text-stone-400 outline-none transition-colors duration-300;
+  }
+
+  .input-light:focus {
+    @apply border-brand-gold;
+  }
+
+  .filter-pill {
+    @apply cursor-pointer border border-brand-gold bg-transparent px-5 py-2.5 font-display text-xs font-light uppercase tracking-wide text-brand-text-dark transition-all duration-300;
+  }
+
+  .filter-pill:hover,
+  .filter-pill.active {
+    @apply bg-brand-gold text-brand-bg;
+  }
+
+  .prose-brand {
+    @apply font-body text-sm font-light leading-relaxed text-brand-cream-muted md:text-base;
+  }
+
+  .prose-brand h2 {
+    @apply brand-caps mt-10 text-lg text-brand-cream md:text-xl;
+  }
+
+  .prose-brand h3 {
+    @apply mt-8 font-display text-base font-light uppercase tracking-wide text-brand-cream;
+  }
+
+  .prose-brand p {
+    @apply mt-4;
+  }
+
+  .prose-brand ul {
+    @apply mt-4 list-none space-y-2 pl-0;
+  }
+
+  .prose-brand li {
+    @apply flex gap-3;
+  }
+
+  .prose-brand li::before {
+    content: "—";
+    @apply shrink-0 text-brand-gold;
+  }
+
+  .prose-brand a {
+    @apply text-brand-gold underline decoration-brand-gold/40 underline-offset-4 transition-colors hover:text-brand-gold-hover hover:decoration-brand-gold;
+  }
+
+  .prose-brand strong {
+    @apply font-medium text-brand-cream;
+  }
+}

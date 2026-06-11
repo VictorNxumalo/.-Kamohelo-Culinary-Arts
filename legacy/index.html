@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Kamohelo Motaung | Culinary Gallery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2C1810;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .gold-accent {
+            color: #B89F6B;
+        }
+        .gold-border {
+            border-color: #B89F6B;
+        }
+        .bg-cream {
+            background-color: #F8F5F0;
+        }
+        .bg-charcoal {
+            background-color: #2C1810;
+        }
+        .hover-gold:hover {
+            color: #B89F6B;
+            transition: color 0.3s ease;
+        }
+        .hover-gold-bg:hover {
+            background-color: #B89F6B;
+            color: white;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #B89F6B;
+        }
+        .skill-bar {
+            height: 6px;
+            background-color: #E5E0D8;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        .skill-level {
+            height: 100%;
+            background-color: #B89F6B;
+            border-radius: 3px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+        .skill-level.animated {
+            width: var(--skill-level);
+        }
+        
+        /* Gallery specific styles */
+        .gallery-item {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(44, 24, 16, 0.15);
+        }
+        .gallery-item img {
+            transition: transform 0.6s ease;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(44, 24, 16, 0.9), transparent);
+            color: white;
+            padding: 2rem 1.5rem 1.5rem;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            transform: translateY(0);
+        }
+        
+        /* Lightbox styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.92);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        .lightbox img {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+        .lightbox-close:hover {
+            color: #B89F6B;
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .lightbox-nav button {
+            background: rgba(184, 159, 107, 0.2);
+            border: none;
+            color: white;
+            font-size: 2rem;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 20px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .lightbox-nav button:hover {
+            background: rgba(184, 159, 107, 0.8);
+            transform: scale(1.1);
+        }
+        .lightbox-info {
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            max-width: 600px;
+        }
+        .lightbox-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .lightbox-info p {
+            color: #ddd;
+            font-size: 1.1rem;
+        }
+        
+        /* Filter buttons */
+        .filter-btn {
+            background: transparent;
+            border: 1px solid #B89F6B;
+            color: #2C1810;
+            padding: 10px 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background-color: #B89F6B;
+            color: white;
+        }
+        
+        /* Page transition */
+        .page-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F5F0;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        .page-transition.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(184, 159, 107, 0.2);
+            border-top-color: #B89F6B;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-cream">
+    <!-- Page transition loader -->
+    <div id="page-transition" class="page-transition">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <button id="lightbox-close" class="lightbox-close">&times;</button>
+        <div class="lightbox-nav">
+            <button id="lightbox-prev"><i class="fas fa-chevron-left"></i></button>
+            <button id="lightbox-next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <div class="lightbox-info">
+                <h3 id="lightbox-title"></h3>
+                <p id="lightbox-desc"></p>
+                <p id="lightbox-tags" class="mt-2 text-sm text-gray-300"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-cream/95 backdrop-blur-sm py-4 border-b border-amber-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="serif-font text-2xl font-bold gold-accent">Chef Kamohelo Motaung</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="#about" class="hover-gold font-medium">About</a>
+                <a href="#gallery" class="hover-gold font-medium">Gallery</a>
+                <a href="showcase.html" class="hover-gold font-medium">Showcase</a>
+                <a href="#experience" class="hover-gold font-medium">Experience</a>
+                <a href="#skills" class="hover-gold font-medium">Skills</a>
+                <a href="#contact" class="hover-gold font-medium">Book Now</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-charcoal">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-cream border-t border-amber-100 px-6 py-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#about" class="hover-gold font-medium py-2">About</a>
+                <a href="#gallery" class="hover-gold font-medium py-2">Gallery</a>
+                <a href="showcase.html" class="hover-gold font-medium py-2">Showcase</a>
+                <a href="#experience" class="hover-gold font-medium py-2">Experience</a>
+                <a href="#skills" class="hover-gold font-medium py-2">Skills</a>
+                <a href="#contact" class="hover-gold font-medium py-2">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 md:pt-32 md:pb-24 px-6">
+        <div class="container mx-auto">
+            <div class="flex flex-col lg:flex-row items-center">
+                <div class="lg:w-1/2 mb-12 lg:mb-0 fade-in">
+                    <h1 class="serif-font text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                        Chef <span class="gold-accent">Kamohelo Motaung</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-700 mb-8 italic">
+                        Crafting culinary experiences that tell a story, one plate at a time.
+                    </p>
+                    <p class="text-gray-600 mb-10 max-w-2xl">
+                        Award-winning chef with over 15 years of experience in Michelin-starred kitchens across Europe. 
+                        Specializing in modern French cuisine with a focus on locally sourced, seasonal ingredients.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#contact" class="bg-charcoal text-white px-8 py-4 font-medium hover:bg-opacity-90 transition duration-300 shadow-lg">
+                            Book for Private Events
+                        </a>
+                        <a href="#gallery" class="border gold-border text-charcoal px-8 py-4 font-medium hover:bg-amber-50 transition duration-300">
+                            Explore My Gallery
+                        </a>
+                    </div>
+                </div>
+                <div class="lg:w-1/2 flex justify-center fade-in">
+                    <div class="relative">
+                        <div class="w-72 h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white shadow-2xl">
+                            <img src="Assets/Profile Image.jpeg" 
+                                 alt="Chef Kamohelo Motaung" class="w-full h-full object-cover">
+                        </div>
+                        <div class="absolute -bottom-4 -right-4 bg-white p-6 rounded-lg shadow-xl">
+                            <div class="text-center">
+                                <p class="serif-font text-3xl font-bold gold-accent">3+</p>
+                                <p class="text-sm text-gray-600">Years Experience</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">Culinary Gallery</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">A visual journey through my culinary creations, showcasing technique, artistry, and passion on every plate.</p>
+            </div>
+            
+            <!-- Gallery Filter -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12 fade-in">
+                <button class="filter-btn active" data-filter="all">All Creations</button>
+                <button class="filter-btn" data-filter="modern-french">Modern French</button>
+                <button class="filter-btn" data-filter="desserts">Desserts & Pastry</button>
+                <button class="filter-btn" data-filter="seasonal">Seasonal Specialties</button>
+                <button class="filter-btn" data-filter="signature">Signature Dishes</button>
+            </div>
+            
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="gallery-grid">
+                <!-- Gallery items will be dynamically added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 px-6 bg-cream">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">My Culinary Journey</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">From apprentice to award-winning chef, my passion has always been creating memorable dining experiences.</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/2 fade-in">
+                    <h3 class="serif-font text-3xl font-bold mb-8">Background & Philosophy</h3>
+                    <p class="text-gray-700 mb-6">
+                        Born and raised in the Lyon region of France, I was immersed in the world of gastronomy from a young age. 
+                        My grandmother's kitchen was my first classroom, where I learned the importance of quality ingredients and time-honored techniques.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        My culinary philosophy centers on three core principles: <span class="font-semibold gold-accent">seasonality, simplicity, and storytelling</span>. 
+                        I believe that each dish should not only delight the palate but also convey a narrative about its origins and the hands that crafted it.
+                    </p>
+                    <p class="text-gray-700">
+                        Today, I bring this approach to private dining experiences, creating bespoke menus that reflect both my classical training and innovative spirit.
+                    </p>
+                </div>
+                
+                <div class="lg:w-1/2 fade-in">
+                    <h3 class="serif-font text-3xl font-bold mb-8">Education & Certifications</h3>
+                    <div class="space-y-8">
+                        <div class="border-l-4 gold-border pl-6 py-2">
+                            <h4 class="serif-font text-xl font-bold mb-2">Le Cordon Bleu, Paris</h4>
+                            <p class="text-gray-600 mb-1">Grand Diplôme in Culinary Arts</p>
+                            <p class="text-sm text-gray-500">2005 - 2007</p>
+                        </div>
+                        <div class="border-l-4 gold-border pl-6 py-2">
+                            <h4 class="serif-font text-xl font-bold mb-2">Michelin Star Recognition</h4>
+                            <p class="text-gray-600 mb-1">Awarded at Restaurant Le Jardin (2014, 2015)</p>
+                            <p class="text-sm text-gray-500">2014 - 2015</p>
+                        </div>
+                        <div class="border-l-4 gold-border pl-6 py-2">
+                            <h4 class="serif-font text-xl font-bold mb-2">World Culinary Championship</h4>
+                            <p class="text-gray-600 mb-1">Gold Medal, Modern French Category</p>
+                            <p class="text-sm text-gray-500">2018</p>
+                        </div>
+                        <div class="border-l-4 gold-border pl-6 py-2">
+                            <h4 class="serif-font text-xl font-bold mb-2">Certified Master Chef</h4>
+                            <p class="text-gray-600 mb-1">World Association of Chefs Societies</p>
+                            <p class="text-sm text-gray-500">2020</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 px-6 bg-white">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">Professional Experience</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">A journey through some of the world's most prestigious kitchens and culinary projects.</p>
+            </div>
+            
+            <div class="relative max-w-4xl mx-auto">
+                <!-- Timeline -->
+                <div class="space-y-12 relative">
+                    <div class="timeline-item relative pl-10 fade-in">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="serif-font text-2xl font-bold mb-2">Head Chef & Culinary Director</h3>
+                                    <p class="text-gray-600 font-medium">Éclat Restaurant, London</p>
+                                </div>
+                                <span class="bg-amber-50 text-charcoal px-3 py-1 rounded-full text-sm font-medium">2019 - Present</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Leading a team of 12 chefs in a fine-dining establishment focused on modern French cuisine. 
+                                Reduced food costs by 18% while maintaining Michelin standards. Introduced a zero-waste initiative 
+                                that repurposes 95% of kitchen byproducts.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative pl-10 fade-in">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="serif-font text-2xl font-bold mb-2">Sous Chef</h3>
+                                    <p class="text-gray-600 font-medium">Restaurant Le Jardin, Paris</p>
+                                </div>
+                                <span class="bg-amber-50 text-charcoal px-3 py-1 rounded-full text-sm font-medium">2013 - 2019</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Assisted in maintaining two Michelin stars. Developed seasonal tasting menus that increased 
+                                restaurant revenue by 22%. Trained and mentored 8 junior chefs, 3 of whom now hold sous chef 
+                                positions in Michelin-starred restaurants.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-item relative pl-10 fade-in">
+                        <div class="bg-white p-8 rounded-lg shadow-md">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h3 class="serif-font text-2xl font-bold mb-2">Chef de Partie</h3>
+                                    <p class="text-gray-600 font-medium">La Maison Blanche, Lyon</p>
+                                </div>
+                                <span class="bg-amber-50 text-charcoal px-3 py-1 rounded-full text-sm font-medium">2009 - 2013</span>
+                            </div>
+                            <p class="text-gray-700">
+                                Managed the pastry and dessert section. Created signature desserts that were featured in 
+                                "France's Top 50 Dishes" by Le Figaro. Implemented new plating techniques that reduced 
+                                dessert preparation time by 15%.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills & Specialties -->
+    <section id="skills" class="py-16 px-6 bg-cream">
+        <div class="container mx-auto">
+            <div class="text-center mb-16 fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">Skills & Specialties</h2>
+                <p class="text-gray-600 max-w-3xl mx-auto">Mastering both classic techniques and innovative culinary approaches.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="fade-in">
+                    <h3 class="serif-font text-3xl font-bold mb-8">Cuisine Focus</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Modern French</span>
+                                <span class="gold-accent font-medium">95%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="95"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Mediterranean</span>
+                                <span class="gold-accent font-medium">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="90"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Farm-to-Table</span>
+                                <span class="gold-accent font-medium">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="85"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Pastry & Desserts</span>
+                                <span class="gold-accent font-medium">88%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-level" data-level="88"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="fade-in">
+                    <h3 class="serif-font text-3xl font-bold mb-8">Services Offered</h3>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-amber-50 p-6 rounded-lg">
+                            <i class="fas fa-utensils text-2xl gold-accent mb-4"></i>
+                            <h4 class="serif-font text-xl font-bold mb-2">Private Dining</h4>
+                            <p class="text-gray-700 text-sm">Intimate dinners for 2-20 guests</p>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-lg">
+                            <i class="fas fa-glass-cheers text-2xl gold-accent mb-4"></i>
+                            <h4 class="serif-font text-xl font-bold mb-2">Catering Events</h4>
+                            <p class="text-gray-700 text-sm">Weddings, corporate events, galas</p>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-lg">
+                            <i class="fas fa-user-graduate text-2xl gold-accent mb-4"></i>
+                            <h4 class="serif-font text-xl font-bold mb-2">Cooking Classes</h4>
+                            <p class="text-gray-700 text-sm">Personal & group culinary lessons</p>
+                        </div>
+                        <div class="bg-amber-50 p-6 rounded-lg">
+                            <i class="fas fa-concierge-bell text-2xl gold-accent mb-4"></i>
+                            <h4 class="serif-font text-xl font-bold mb-2">Menu Consulting</h4>
+                            <p class="text-gray-700 text-sm">Restaurant & hospitality consulting</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Booking Section -->
+    <section id="contact" class="py-16 px-6 bg-charcoal text-white">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">Book Your Culinary Experience</h2>
+                <p class="text-gray-300 text-xl mb-12 max-w-3xl mx-auto">
+                    Ready to create an unforgettable dining experience? Let's discuss your event and craft a bespoke menu that will delight your guests.
+                </p>
+                
+                <div class="bg-white text-charcoal rounded-2xl p-8 md:p-12 shadow-2xl">
+                    <div class="text-center mb-10">
+                        <i class="fas fa-envelope-open-text text-5xl gold-accent mb-6"></i>
+                        <h3 class="serif-font text-3xl font-bold mb-4">Get in Touch</h3>
+                        <p class="text-gray-600 mb-8">
+                            For inquiries about private dining, events, or collaborations, please reach out via email.
+                            I typically respond within 24-48 hours.
+                        </p>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-6">
+                            <a href="mailto:kamoheloMotaung@chefalexandre.com" class="bg-charcoal text-white px-10 py-5 font-bold text-lg hover:bg-opacity-90 transition duration-300 shadow-lg flex items-center gap-3">
+                                <i class="fas fa-paper-plane"></i>
+                                kamoheloMotaung@chefalexandre.com
+                            </a>
+                            <div class="text-left">
+                                <p class="font-semibold">Direct Contact</p>
+                                <p class="text-gray-600">+27 083 972 5798</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="border-t border-gray-200 pt-10">
+                        <h4 class="serif-font text-2xl font-bold mb-6">What to Include in Your Inquiry</h4>
+                        <div class="grid md:grid-cols-2 gap-6 text-left">
+                            <div class="flex items-start gap-4">
+                                <div class="bg-amber-50 p-3 rounded-full">
+                                    <i class="fas fa-calendar-alt gold-accent"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2">Event Date & Type</h5>
+                                    <p class="text-gray-600 text-sm">Wedding, corporate dinner, private party, etc.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-amber-50 p-3 rounded-full">
+                                    <i class="fas fa-users gold-accent"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2">Guest Count</h5>
+                                    <p class="text-gray-600 text-sm">Approximate number of attendees</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-amber-50 p-3 rounded-full">
+                                    <i class="fas fa-map-marker-alt gold-accent"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2">Location & Venue</h5>
+                                    <p class="text-gray-600 text-sm">Event location and venue details if available</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="bg-amber-50 p-3 rounded-full">
+                                    <i class="fas fa-utensils gold-accent"></i>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold mb-2">Cuisine Preferences</h5>
+                                    <p class="text-gray-600 text-sm">Dietary restrictions, preferences, or themes</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 bg-charcoal text-gray-400 border-t border-gray-800">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="serif-font text-2xl font-bold gold-accent">Chef Kamohelo</a>
+                    <p class="mt-2 text-sm">Crafting exceptional culinary experiences since 2022</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover-gold text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="hover-gold text-xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="hover-gold text-xl">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2023 Chef Kamohelo Motaung. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Gallery data
+        const galleryItems = [
+            {
+                id: 1,
+                title: "Pan-Seared White Fish Fillet",
+                description: "White Fish fillet served over couscous & garnished with citrus",
+                image: "Assets/Quisines/Pan-Seared White Fish Fillet.jpeg",
+                tags: ["modern-french", "signature"],
+                featured: true
+            },
+            {
+                id: 2,
+                title: "Chicken roulade",
+                description: "A similar meat roll, elegantly presented with a rich sauce, mashed potatoes & vegetables like carrots & mushrooms",
+                image: "Assets/Quisines/Chicken roulade.jpeg",
+                tags: ["modern-french", "signature"],
+                featured: true
+            },
+            {
+                id: 3,
+                title: "Frenched rack of Lamb",
+                description: "Commonly known as lamb cutlets or lamb lollipops, served with roasted potatoes & vibrant green sauce",
+                image: "Assets/Quisines/Rack of lamb.jpeg",
+                tags: ["seasonal", "modern-french"],
+                featured: false
+            },
+            {
+                id: 4,
+                title: "Chocolate lava cake",
+                description: "Also known as chocolate fondant or molten chocolate cake. ",
+                image: "Assets/Quisines/chocolate lava cake .jpeg",
+                tags: ["desserts"],
+                featured: true
+            },
+            {
+                id: 5,
+                title: "Savory appetizer platter / Grazing board",
+                description: "Featuring a curated assortment of items often found in british pub food or picnic",
+                image: "Assets/Quisines/Grazing Board.jpeg",
+                tags: ["modern-french", "signature"],
+                featured: false
+            },
+            {
+                id: 6,
+                title: "Classic duo burgers",
+                description: "To be more precise, one chicken & one beef burger",
+                image: "Assets/Quisines/Burgers.jpeg",
+                tags: ["seasonal", "modern-french"],
+                featured: false
+            },
+            {
+                id: 7,
+                title: "Chicken club sandwich & chicken wrap",
+                description: "Toasted white bread & a chicken wrap with shawarma filling",
+                image: "Assets/Quisines/Chicken club sandwhich & chicken wrap.jpeg",
+                tags: ["modern-french", "signature"],
+                featured: true
+            },
+            {
+                id: 8,
+                title: "Green pesto pasta with & crispy fried chicken",
+                description: "A serving of long pasta, several peices of chicked & garnish.",
+                image: "Assets/Quisines/Green pesto Pasta.jpeg",
+                tags: ["modern-french"],
+                featured: false
+            },
+            {
+                id: 9,
+                title: "Brownie sundae / chocolate brownie",
+                description: "chocolate brownie with ice cream & caramel sauce.",
+                image: "Assets/Quisines/Chocolate brownie.jpeg",
+                tags: ["desserts"],
+                featured: false
+            }
+        ];
+
+        // Lightbox & gallery data
+        let currentFlatIndex = 0; // index into flattenedGallery
+        let filteredGalleryItems = [...galleryItems];
+        let flattenedGallery = []; // flattened list of all images (across items)
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Scroll animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                    
+                    // Animate skill bars if element is in skills section
+                    if (element.parentElement.id === 'skills' || 
+                        element.parentElement.parentElement.id === 'skills') {
+                        const skillBars = element.querySelectorAll('.skill-level');
+                        skillBars.forEach(bar => {
+                            const level = bar.getAttribute('data-level');
+                            bar.style.setProperty('--skill-level', `${level}%`);
+                            setTimeout(() => {
+                                bar.classList.add('animated');
+                            }, 300);
+                        });
+                    }
+                }
+            });
+        };
+        
+        // Initialize animations
+        window.addEventListener('scroll', fadeInOnScroll);
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Gallery Functions
+        // Builds a flattened list of images (so lightbox can navigate per-image)
+        function buildFlattened(items) {
+            flattenedGallery = [];
+            items.forEach((item, itemIndex) => {
+                const images = Array.isArray(item.image) ? item.image : [item.image];
+                images.forEach((img, imgIndex) => {
+                    flattenedGallery.push({
+                        itemIndex,
+                        imgIndex,
+                        image: img,
+                        title: item.title,
+                        description: item.description,
+                        tags: item.tags,
+                        featured: item.featured
+                    });
+                });
+            });
+        }
+
+        function renderGallery(items) {
+            buildFlattened(items);
+            const galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = '';
+
+            items.forEach((item, index) => {
+                const images = Array.isArray(item.image) ? item.image : [item.image];
+                const mainImage = images[0];
+
+                const galleryItem = document.createElement('div');
+                galleryItem.className = 'gallery-item relative rounded-xl overflow-hidden shadow-lg bg-white';
+                galleryItem.setAttribute('data-index', index);
+                galleryItem.setAttribute('data-tags', item.tags.join(' '));
+
+                // Thumbnails (if multiple images)
+                let thumbsHtml = '';
+                if (images.length > 1) {
+                    const thumbImgs = images.map((img, i) => {
+                        const flatIndex = flattenedGallery.findIndex(e => e.itemIndex === index && e.imgIndex === i);
+                        return `<img src="${img}" data-flat-index="${flatIndex}" class="thumbnail w-16 h-10 object-cover rounded cursor-pointer">`;
+                    }).join('');
+
+                    thumbsHtml = `<div class="mt-2 flex gap-2">${thumbImgs}</div>`;
+                }
+
+                                galleryItem.innerHTML = `
+                                    <div class="relative h-80 overflow-hidden group">
+                                        <img src="${mainImage}" alt="${item.title}" class="w-full h-full object-cover">
+                                        <div class="gallery-overlay">
+                                            <h3 class="serif-font text-xl font-bold mb-2 line-clamp-2">${item.title}</h3>
+                                            <p class="text-gray-100 text-sm mb-4 line-clamp-3 leading-relaxed">${item.description}</p>
+                                            <div class="flex flex-wrap gap-2">
+                                                ${item.tags.map(tag => `<span class="bg-white/30 text-white text-xs px-2 py-1 rounded-full">${tag.replace('-', ' ')}</span>`).join('')}
+                                            </div>
+                                        </div>
+                                        ${item.featured ? '<div class="absolute top-4 right-4 bg-yellow-600 text-white text-xs font-bold px-3 py-1 rounded-full">Featured</div>' : ''}
+                                    </div>
+                                    ${thumbsHtml}
+                                `;
+
+                // Open main image in lightbox
+                const mainFlatIndex = flattenedGallery.findIndex(e => e.itemIndex === index && e.imgIndex === 0);
+                galleryItem.addEventListener('click', (e) => {
+                    // if clicked a thumbnail, let its handler manage it
+                    if (e.target.classList.contains('thumbnail')) return;
+                    openLightbox(mainFlatIndex);
+                });
+
+                galleryGrid.appendChild(galleryItem);
+
+                // Attach thumbnail handlers
+                const thumbs = galleryItem.querySelectorAll('.thumbnail');
+                thumbs.forEach(t => {
+                    t.addEventListener('click', (ev) => {
+                        ev.stopPropagation();
+                        const flat = parseInt(t.getAttribute('data-flat-index'), 10);
+                        if (!isNaN(flat)) openLightbox(flat);
+                    });
+                });
+            });
+        }
+        
+        // Filter gallery items
+        function filterGallery(category) {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                if (btn.getAttribute('data-filter') === category) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            if (category === 'all') {
+                filteredGalleryItems = [...galleryItems];
+            } else {
+                filteredGalleryItems = galleryItems.filter(item => 
+                    item.tags.includes(category)
+                );
+            }
+
+            renderGallery(filteredGalleryItems);
+        }
+        
+        // Lightbox Functions
+        function openLightbox(flatIndex) {
+            currentFlatIndex = flatIndex;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLightbox() {
+            if (!flattenedGallery.length) return;
+            const entry = flattenedGallery[currentFlatIndex];
+            document.getElementById('lightbox-img').src = entry.image;
+            document.getElementById('lightbox-img').alt = entry.title;
+            document.getElementById('lightbox-title').textContent = entry.title;
+            document.getElementById('lightbox-desc').textContent = entry.description;
+            document.getElementById('lightbox-tags').textContent = `Tags: ${entry.tags.map(tag => tag.replace('-', ' ')).join(', ')}`;
+        }
+
+        function nextLightbox() {
+            if (!flattenedGallery.length) return;
+            currentFlatIndex = (currentFlatIndex + 1) % flattenedGallery.length;
+            updateLightbox();
+        }
+
+        function prevLightbox() {
+            if (!flattenedGallery.length) return;
+            currentFlatIndex = (currentFlatIndex - 1 + flattenedGallery.length) % flattenedGallery.length;
+            updateLightbox();
+        }
+        
+        // Initialize gallery
+        renderGallery(galleryItems);
+        
+        // Set up filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const filter = btn.getAttribute('data-filter');
+                filterGallery(filter);
+            });
+        });
+        
+        // Set up lightbox controls
+        document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+        document.getElementById('lightbox-prev').addEventListener('click', prevLightbox);
+        document.getElementById('lightbox-next').addEventListener('click', nextLightbox);
+        
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') {
+                closeLightbox();
+            }
+        });
+        
+        // Keyboard navigation for lightbox
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextLightbox();
+            if (e.key === 'ArrowLeft') prevLightbox();
+        });
+        
+        // Page transition
+        const pageTransition = document.getElementById('page-transition');
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                pageTransition.classList.add('hidden');
+                fadeInOnScroll(); // Trigger initial fade-in
+            }, 800);
+        });
+        
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Trigger animations for elements already in view
+            setTimeout(fadeInOnScroll, 100);
+        });
+    </script>
+</body>
+</html>

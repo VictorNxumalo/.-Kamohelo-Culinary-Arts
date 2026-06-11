@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef's Craft | The Art of Precision</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.7.8/plyr.css" />
+    <style>
+        * {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #2C1810;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4, .serif-font {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        .gold-accent {
+            color: #B89F6B;
+        }
+        .gold-border {
+            border-color: #B89F6B;
+        }
+        .bg-cream {
+            background-color: #F8F5F0;
+        }
+        .bg-charcoal {
+            background-color: #2C1810;
+        }
+        .hover-gold:hover {
+            color: #B89F6B;
+            transition: color 0.3s ease;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Cinematic styles */
+        .cinematic-border {
+            position: relative;
+        }
+        .cinematic-border::before, .cinematic-border::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 2px;
+            background-color: #B89F6B;
+            transition: width 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        .cinematic-border::before {
+            top: 0;
+            left: 0;
+        }
+        .cinematic-border::after {
+            bottom: 0;
+            right: 0;
+        }
+        .cinematic-border:hover::before,
+        .cinematic-border:hover::after {
+            width: 100%;
+        }
+        
+        /* Video container with aspect ratio */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            background-color: #000;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Skill highlight cards */
+        .skill-card {
+            transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(44, 24, 16, 0.12);
+        }
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #B89F6B, #D4B483);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        /* Quote animation */
+        .quote-mark {
+            font-size: 8rem;
+            line-height: 0.8;
+            color: rgba(184, 159, 107, 0.1);
+            position: absolute;
+            top: -20px;
+            left: -10px;
+            z-index: 0;
+        }
+        
+        /* Navigation link animation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: #B89F6B;
+            transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        /* School link animation */
+        .school-link {
+            position: relative;
+            overflow: hidden;
+        }
+        .school-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(184, 159, 107, 0.1), transparent);
+            transition: left 0.7s ease;
+        }
+        .school-link:hover::before {
+            left: 100%;
+        }
+        
+        /* Loading animation */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #F8F5F0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 3px solid rgba(184, 159, 107, 0.2);
+            border-top-color: #B89F6B;
+            border-radius: 50%;
+            animation: spin 1.2s cubic-bezier(0.5, 0.1, 0.5, 0.9) infinite;
+            margin-bottom: 30px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loading-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: #2C1810;
+            letter-spacing: 2px;
+        }
+        
+        /* Scroll progress indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, #B89F6B, #D4B483);
+            z-index: 1000;
+            transition: width 0.1s ease;
+        }
+        
+        /* Mobile touch enhancements */
+        @media (max-width: 768px) {
+            .quote-mark {
+                font-size: 5rem;
+                top: -10px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-cream">
+    <!-- Loading screen -->
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+        <div class="loading-text">PREPARING THE CRAFT</div>
+    </div>
+    
+    <!-- Scroll progress indicator -->
+    <div id="scroll-progress" class="scroll-progress"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-cream/90 backdrop-blur-sm py-5 border-b border-amber-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="#" class="serif-font text-2xl font-bold gold-accent">Chef Kamohelo Motaung</a>
+            <div class="hidden md:flex space-x-10">
+                <a href="index.html" class="nav-link font-medium text-charcoal hover:text-charcoal/80">Portfolio</a>
+                <a href="#video" class="nav-link font-medium text-charcoal hover:text-charcoal/80">Craft</a>
+                <a href="#skills" class="nav-link font-medium text-charcoal hover:text-charcoal/80">Techniques</a>
+                <a href="#philosophy" class="nav-link font-medium text-charcoal hover:text-charcoal/80">Philosophy</a>
+                <a href="#training" class="nav-link font-medium text-charcoal hover:text-charcoal/80">Training</a>
+            </div>
+            <a href="index.html#contact" class="hidden md:block border gold-border text-charcoal px-6 py-2 font-medium hover:bg-amber-50 transition duration-300">
+                Book the Chef
+            </a>
+            <button id="mobile-menu-btn" class="md:hidden text-charcoal">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-cream border-t border-amber-100 px-6 py-4">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="nav-link font-medium py-2">Portfolio</a>
+                <a href="#video" class="nav-link font-medium py-2">Craft</a>
+                <a href="#skills" class="nav-link font-medium py-2">Techniques</a>
+                <a href="#philosophy" class="nav-link font-medium py-2">Philosophy</a>
+                <a href="#training" class="nav-link font-medium py-2">Training</a>
+                <a href="index.html#contact" class="border gold-border text-charcoal px-6 py-3 font-medium hover:bg-amber-50 transition duration-300 text-center mt-2">
+                    Book the Chef
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 px-6">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-8 fade-in">
+                    <span class="inline-block px-4 py-2 bg-amber-50 text-charcoal rounded-full text-sm font-medium tracking-wide">
+                        A CINEMATIC JOURNEY
+                    </span>
+                </div>
+                
+                <h1 class="serif-font text-5xl md:text-7xl font-bold mb-8 fade-in">
+                    The <span class="gold-accent">Art</span> of Precision
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-700 mb-12 max-w-3xl mx-auto fade-in">
+                    Where discipline meets creativity, and every movement tells a story of mastery.
+                </p>
+                
+                <div class="flex justify-center fade-in">
+                    <a href="#video" class="group flex items-center gap-3 text-charcoal font-medium hover:text-charcoal/80 transition duration-300">
+                        <span>Witness the Craft</span>
+                        <i class="fas fa-arrow-down group-hover:translate-y-1 transition-transform duration-300"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cinematic Video Showcase -->
+    <section id="video" class="py-20 px-6 bg-charcoal">
+        <div class="container mx-auto">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6 text-white">
+                        Craft in Motion
+                    </h2>
+                    <p class="text-gray-300 text-lg max-w-2xl mx-auto">
+                        A silent study of skill, patience, and the meticulous art of culinary precision.
+                    </p>
+                </div>
+                
+                <!-- Video Container -->
+                <div class="cinematic-border rounded-lg overflow-hidden shadow-2xl fade-in">
+                    <div class="video-container">
+                        <!-- Video player -->
+                        <video id="skill-video" poster="Assets/showcase/showcase.image.jpeg" controls crossorigin playsinline>
+                            <source src="Assets\showcase\showcase.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        
+                        <!-- Custom play button overlay -->
+                        <div id="video-overlay" class="absolute inset-0 flex items-center justify-center bg-black/30 transition-opacity duration-500 cursor-pointer">
+                            <div class="text-center">
+                                <div class="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center mb-6 mx-auto border border-white/20">
+                                    <i class="fas fa-play text-3xl text-white"></i>
+                                </div>
+                                <p class="text-white font-medium tracking-wide">PLAY CRAFT SHOWCASE</p>
+                                <p class="text-white/70 text-sm mt-2">1:00 • Culinary Precision</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Video controls info -->
+                <div class="flex flex-wrap justify-center items-center gap-6 mt-8 text-gray-400 text-sm fade-in">
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-volume-mute"></i>
+                        <span>Designed for silent viewing</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-expand"></i>
+                        <span>Click to expand</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <i class="fas fa-hand-point-up"></i>
+                        <span>Hover for details</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skill Highlights -->
+    <section id="skills" class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="text-center mb-40 fade-in">
+                <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">
+                    The Language of <span class="gold-accent">Skill</span>
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    Each technique is a vocabulary of its own—learned through repetition, perfected through patience.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-15">
+                <!-- Skill Card 1 -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-md fade-in">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mb-4">
+                            <i class="fas fa-utensil-spoon text-2xl gold-accent"></i>
+                        </div>
+                        <h3 class="serif-font text-2xl font-bold mb-3">Knife Precision</h3>
+                        <p class="text-gray-600">
+                            The foundation of all culinary work—where safety meets speed, and consistency becomes instinct.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>French Technique</span>
+                            <span>15+ years</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 2 -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-md fade-in">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mb-4">
+                            <i class="fas fa-carrot text-2xl gold-accent"></i>
+                        </div>
+                        <h3 class="serif-font text-2xl font-bold mb-3">Vegetable Craft</h3>
+                        <p class="text-gray-600">
+                            Transforming humble ingredients into consistent, beautiful components through precise cuts and understanding of texture.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>Seasonal Focus</span>
+                            <span>Meticulous</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skill Card 3 -->
+                <div class="skill-card bg-white p-8 rounded-lg shadow-md fade-in">
+                    <div class="mb-6">
+                        <div class="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mb-4">
+                            <i class="fas fa-hand-holding-heart text-2xl gold-accent"></i>
+                        </div>
+                        <h3 class="serif-font text-2xl font-bold mb-3">Ingredient Respect</h3>
+                        <p class="text-gray-600">
+                            Handling each component with intention—understanding its story, potential, and perfect application.
+                        </p>
+                    </div>
+                    <div class="pt-6 border-t border-gray-100">
+                        <div class="flex items-center justify-between text-sm text-gray-500">
+                            <span>Farm-to-Table</span>
+                            <span>Ethical Focus</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Additional visual element -->
+            <div class="mt-20 fade-in">
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="md:w-1/2">
+                            <div class="relative">
+                                <div class="w-64 h-64 rounded-full overflow-hidden border-8 border-white shadow-xl">
+                                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1132&q=80" 
+                                         alt="Chef's hands working" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -bottom-4 -right-4 bg-white p-6 rounded-lg shadow-lg">
+                                    <div class="text-center">
+                                        <p class="serif-font text-3xl font-bold gold-accent">10,000+</p>
+                                        <p class="text-sm text-gray-600">Hours of practice</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2">
+                            <div class="relative">
+                                <div class="quote-mark">"</div>
+                                <blockquote class="serif-font text-2xl md:text-3xl italic text-gray-800 relative z-10">
+                                    Mastery is not a destination, but a relationship with repetition—where hands learn what words cannot teach.
+                                </blockquote>
+                                <div class="mt-8 pt-6 border-t border-amber-100">
+                                    <p class="text-gray-600">
+                                        Every skill shown is a result of deliberate practice, guided by mentors who understood that technique is the foundation of creativity.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-20 px-6 bg-charcoal text-white">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">
+                        Philosophy of <span class="gold-accent">Presence</span>
+                    </h2>
+                    <p class="text-gray-300 text-lg">
+                        The space between ingredients, intention, and execution—where true craft lives.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="fade-in">
+                        <div class="mb-8">
+                            <div class="w-12 h-1 bg-amber-200 mb-6"></div>
+                            <h3 class="serif-font text-2xl font-bold mb-4">The Quiet Kitchen</h3>
+                            <p class="text-gray-300">
+                                In professional kitchens, noise is distraction. The most skilled chefs work with a focused silence—every movement intentional, every placement considered.
+                            </p>
+                        </div>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-amber-900/30 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-clock text-amber-200 text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Rhythm Over Speed</h4>
+                                    <p class="text-gray-400 text-sm">Efficiency comes from flow, not haste. Each action connects to the next.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start gap-4">
+                                <div class="w-8 h-8 rounded-full bg-amber-900/30 flex items-center justify-center flex-shrink-0 mt-1">
+                                    <i class="fas fa-eye text-amber-200 text-sm"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold mb-1">Visual Consistency</h4>
+                                    <p class="text-gray-400 text-sm">The eye judges before the palate—uniformity is the first measure of care.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="fade-in">
+                        <div class="mb-8">
+                            <div class="w-12 h-1 bg-amber-200 mb-6"></div>
+                            <h3 class="serif-font text-2xl font-bold mb-4">Tools as Extensions</h3>
+                            <p class="text-gray-300">
+                                A chef's knife is not just a tool—it's an extension of their hand, their intention, and their respect for the ingredient. This relationship is built over thousands of hours.
+                            </p>
+                        </div>
+                        
+                        <div class="bg-black/30 rounded-lg p-6 border border-amber-900/30">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-10 h-10 rounded-full bg-amber-900/50 flex items-center justify-center">
+                                    <i class="fas fa-toolbox text-amber-200"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold">Maintenance as Ritual</h4>
+                                    <p class="text-gray-400 text-sm">Daily sharpening, cleaning, and care</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-300 text-sm">
+                                "A dull knife is more dangerous than a sharp one. It requires more force, slips more easily, and shows disrespect to both the ingredient and the craft."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training & Education Link -->
+    <section id="training" class="py-20 px-6">
+        <div class="container mx-auto">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="mb-16 fade-in">
+                    <h2 class="serif-font text-4xl md:text-5xl font-bold mb-6">
+                        Crafted Through <span class="gold-accent">Formal Training</span>
+                    </h2>
+                    <p class="text-gray-600 max-w-2xl mx-auto">
+                        True skill begins with disciplined education—learning from masters who have refined techniques over generations.
+                    </p>
+                </div>
+                
+                <div class="bg-gradient-to-br from-amber-50 to-white p-8 md:p-12 rounded-2xl shadow-lg mb-12 fade-in">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="md:w-2/3 text-left">
+                            <div class="mb-6">
+                                <span class="inline-block px-4 py-2 bg-white text-charcoal rounded-full text-sm font-medium shadow-sm mb-4">
+                                    FORMAL EDUCATION
+                                </span>
+                                <h3 class="serif-font text-3xl font-bold mb-4">Internation Hotel School, South Africa</h3>
+                                <p class="text-gray-700 mb-6">
+                                    Where classical French techniques meet modern culinary innovation. The rigorous training program emphasizes precision, discipline, and the foundational skills that separate professionals from amateurs.
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex items-center gap-2 text-gray-600">
+                                        <i class="fas fa-calendar-alt gold-accent"></i>
+                                        <span>2022 - 2024</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-gray-600">
+                                        <i class="fas fa-award gold-accent"></i>
+                                        <span>Degree</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 text-gray-600">
+                                        <i class="fas fa-graduation-cap gold-accent"></i>
+                                        <span>Master Chef Program</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="md:w-1/3">
+                            <div class="relative">
+                                <div class="w-48 h-48 rounded-full overflow-hidden border-8 border-white shadow-xl mx-auto">
+                                    <img src="Assets/Education/logo.webp" 
+                                         alt="Le Cordon Bleu training" class="w-50 h-full object-cover">
+                                </div>
+                                <div class="absolute -bottom-2 -right-2 bg-white p-4 rounded-lg shadow-md">
+                                    <div class="text-center">
+                                        <p class="serif-font text-xl font-bold gold-accent">#1</p>
+                                        <p class="text-xs text-gray-600">Culinary School</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Elegant external link -->
+                <div class="fade-in">
+                    <p class="text-gray-600 mb-8 max-w-xl mx-auto">
+                        Explore the institution where foundational skills are transformed into culinary artistry.
+                    </p>
+                    <a href="https://www.hotelschool.co.za/" target="_blank" rel="noopener noreferrer" 
+                       class="school-link inline-flex items-center gap-4 border-2 gold-border text-charcoal px-10 py-5 font-bold text-lg hover:bg-amber-50 transition-all duration-300 shadow-md rounded-lg group">
+                        <span>Discover International hotel school</span>
+                        <i class="fas fa-external-link-alt group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300"></i>
+                    </a>
+                    <p class="text-gray-500 text-sm mt-4">
+                        Opens in new window • Official culinary institute website
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing CTA -->
+    <section class="py-20 px-6 bg-gradient-to-b from-white to-amber-50">
+        <div class="container mx-auto">
+            <div class="max-w-3xl mx-auto text-center">
+                <div class="fade-in">
+                    <h2 class="serif-font text-4xl md:text-5xl font-bold mb-8">
+                        Skill Meets <span class="gold-accent">Story</span>
+                    </h2>
+                    <p class="text-xl text-gray-700 mb-12 max-w-2xl mx-auto">
+                        Every technique shown here translates to exceptional dining experiences—where precision becomes pleasure.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                        <a href="index.html#contact" class="bg-charcoal text-white px-10 py-5 font-bold text-lg hover:bg-opacity-90 transition duration-300 shadow-lg rounded-lg">
+                            Book a Culinary Experience
+                        </a>
+                        <a href="index.html" class="border gold-border text-charcoal px-10 py-5 font-bold text-lg hover:bg-amber-50 transition duration-300 rounded-lg">
+                            Return to Portfolio
+                        </a>
+                    </div>
+                    
+                    <div class="mt-16 pt-12 border-t border-amber-100">
+                        <p class="text-gray-600 italic">
+                            "Watch a chef's hands—they reveal more than any menu ever could."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 px-6 bg-charcoal text-gray-400 border-t border-gray-800">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="serif-font text-2xl font-bold gold-accent">Chef Kamohelo Motaung</a>
+                    <p class="mt-2 text-sm">Crafting exceptional culinary experiences since 2022</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="https://www.instagram.com/alpha.middoew?igsh=MW1jZ2FmenUwOXI0Mw==" class="hover-gold text-xl">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="hover-gold text-xl">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="hover-gold text-xl">
+                        <i class="fab fa-vimeo-v"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-sm">
+                <p>&copy; 2025 Chef Kamohelo Motaung. All rights reserved. | Craft Showcase</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.plyr.io/3.7.8/plyr.js"></script>
+    <script>
+        // Initialize loading screen
+        const loadingScreen = document.getElementById('loading-screen');
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+            }, 1200);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        const mobileLinks = document.querySelectorAll('#mobile-menu a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById('scroll-progress');
+        window.addEventListener('scroll', () => {
+            const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (window.scrollY / windowHeight) * 100;
+            scrollProgress.style.width = scrolled + '%';
+        });
+        
+        // Fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+        
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Video player functionality
+        const video = document.getElementById('skill-video');
+        const videoOverlay = document.getElementById('video-overlay');
+        
+        // Initialize Plyr video player for better controls
+        const player = new Plyr(video, {
+            controls: ['play-large', 'play', 'progress', 'current-time', 'mute', 'volume', 'fullscreen'],
+            ratio: '16:9',
+            autoplay: false,
+            muted: true,
+            clickToPlay: false
+        });
+        
+        // Custom play button
+        videoOverlay.addEventListener('click', () => {
+            videoOverlay.style.opacity = '0';
+            videoOverlay.style.pointerEvents = 'none';
+            player.play();
+        });
+        
+        // Show overlay again when video ends
+        video.addEventListener('ended', () => {
+            setTimeout(() => {
+                videoOverlay.style.opacity = '1';
+                videoOverlay.style.pointerEvents = 'auto';
+            }, 500);
+        });
+        
+        // Pause video when it's not in view (for performance)
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting && !player.paused) {
+                    player.pause();
+                }
+            });
+        }, { threshold: 0.3 });
+        
+        observer.observe(video);
+        
+        // Add subtle parallax effect to some elements
+        document.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.skill-card, .cinematic-border');
+            
+            parallaxElements.forEach((element, index) => {
+                const rate = scrolled * -0.1;
+                element.style.transform = `translateY(${rate}px)`;
+            });
+        });
+        
+        // Initialize animations on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(fadeInOnScroll, 300);
+        });
+    </script>
+</body>
+</html>
