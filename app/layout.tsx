@@ -4,6 +4,7 @@ import { Analytics } from "@/components/Analytics";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { PageLoader } from "@/components/PageLoader";
+import { ScrollProgress } from "@/components/ScrollProgress";
 import { BRAND, BRAND_STATEMENT } from "@/lib/constants";
 import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -75,6 +76,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen font-body">
         <Analytics />
+        <ScrollProgress />
         <PageLoader />
         <Header />
         <main className="pt-[72px]">{children}</main>

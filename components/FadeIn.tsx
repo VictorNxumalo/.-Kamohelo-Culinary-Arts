@@ -6,9 +6,11 @@ type FadeInProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
+  /** Lighter motion for dense grids */
+  subtle?: boolean;
 };
 
-export function FadeIn({ children, className = "", delay = 0 }: FadeInProps) {
+export function FadeIn({ children, className = "", delay = 0, subtle = false }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -23,7 +25,7 @@ export function FadeIn({ children, className = "", delay = 0 }: FadeInProps) {
           observer.disconnect();
         }
       },
-      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+      { threshold: 0.08, rootMargin: "0px 0px -32px 0px" }
     );
 
     observer.observe(el);
@@ -33,7 +35,7 @@ export function FadeIn({ children, className = "", delay = 0 }: FadeInProps) {
   return (
     <div
       ref={ref}
-      className={`fade-section ${visible ? "visible" : ""} ${className}`}
+      className={`fade-section ${subtle ? "fade-section--subtle" : ""} ${visible ? "visible" : ""} ${className}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
       {children}

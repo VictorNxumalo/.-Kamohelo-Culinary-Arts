@@ -12,14 +12,14 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
   return (
     <Link
       href={`/recipes/${recipe.slug}`}
-      className="card-light group block overflow-hidden transition-shadow duration-500 hover:shadow-md"
+      className="card-light group block overflow-hidden rounded-sm"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-brand-bg">
         <Image
           src={recipe.image}
           alt={recipe.title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         {showDraftBadge(recipe.draft) && (
@@ -27,10 +27,14 @@ export function RecipeCard({ recipe }: RecipeCardProps) {
             Draft
           </span>
         )}
+        <div className="image-card-overlay !opacity-100 md:!opacity-0 md:group-hover:!opacity-100">
+          <span className="sub-label text-brand-gold">{formatCategoryLabel(recipe.category)}</span>
+          <h3 className="brand-caps mt-2 text-xs text-brand-cream">{recipe.title}</h3>
+        </div>
       </div>
       <div className="p-6">
         <p className="sub-label text-brand-gold">{formatCategoryLabel(recipe.category)}</p>
-        <h3 className="brand-caps mt-2 text-sm text-brand-text-dark group-hover:text-brand-gold">
+        <h3 className="brand-caps mt-2 text-sm text-brand-text-dark transition-colors duration-300 group-hover:text-brand-gold">
           {recipe.title}
         </h3>
         <p className="mt-3 line-clamp-2 font-body text-sm font-light text-stone-600">
