@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Icon } from "@/components/icons/Icon";
 import { Logo } from "@/components/Logo";
 import { NAV_LINKS, SERVICE_LINKS } from "@/lib/constants";
 
@@ -99,8 +100,9 @@ export function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block px-5 py-2.5 font-display text-xs font-light uppercase tracking-wide text-brand-cream transition-colors duration-300 hover:bg-brand-gold/10 hover:text-brand-gold"
+                  className="flex items-center gap-3 px-5 py-2.5 font-display text-xs font-light uppercase tracking-wide text-brand-cream transition-colors duration-300 hover:bg-brand-gold/10 hover:text-brand-gold"
                 >
+                  <Icon name={link.icon} size={14} className="text-brand-gold" />
                   {link.label}
                 </Link>
               ))}
@@ -152,7 +154,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link tap-scale py-3 transition-all duration-500 ${
+                className={`nav-link tap-scale flex items-center gap-3 py-3 transition-all duration-500 ${
                   pathname === link.href ||
                   (link.href === "/businesses" && isVenturesPath(pathname)) ||
                   (link.href === "/blog" && isJournalPath(pathname))
@@ -162,6 +164,7 @@ export function Header() {
                 style={{ transitionDelay: mobileOpen ? `${i * 40}ms` : "0ms" }}
                 onClick={() => setMobileOpen(false)}
               >
+                <Icon name={link.icon} size={16} className="text-brand-gold" />
                 {link.label}
               </Link>
             ))}
@@ -170,10 +173,11 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`nav-link tap-scale py-3 pl-4 ${pathname === link.href ? "nav-link-active" : ""}`}
+                className={`nav-link tap-scale flex items-center gap-3 py-3 pl-4 ${pathname === link.href ? "nav-link-active" : ""}`}
                 style={{ transitionDelay: mobileOpen ? `${(NAV_LINKS.length + i) * 40}ms` : "0ms" }}
                 onClick={() => setMobileOpen(false)}
               >
+                <Icon name={link.icon} size={16} className="text-brand-gold" />
                 {link.label}
               </Link>
             ))}

@@ -1,3 +1,5 @@
+import type { IconName } from "./icons";
+
 export const BRAND = {
   visual: "Kamohelo Culinary Arts",
   legal: "Kamohelo Culinary Group",
@@ -24,37 +26,37 @@ export const EDUCATION = {
   url: "https://www.hotelschool.co.za/",
 } as const;
 
-export const NAV_LINKS = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/recipes", label: "Recipes" },
-  { href: "/blog", label: "Journal" },
-  { href: "/businesses", label: "Ventures" },
-  { href: "/contact", label: "Contact" },
-] as const;
+export const NAV_LINKS: ReadonlyArray<{ href: string; label: string; icon: IconName }> = [
+  { href: "/", label: "Home", icon: "home" },
+  { href: "/about", label: "About", icon: "user" },
+  { href: "/portfolio", label: "Portfolio", icon: "images" },
+  { href: "/recipes", label: "Recipes", icon: "recipe" },
+  { href: "/blog", label: "Journal", icon: "newspaper" },
+  { href: "/businesses", label: "Ventures", icon: "building" },
+  { href: "/contact", label: "Contact", icon: "mail" },
+];
 
-export const SERVICE_LINKS = [
-  { href: "/private-chef", label: "Private Chef" },
-  { href: "/catering", label: "Catering" },
-  { href: "/consulting", label: "Consulting" },
-] as const;
+export const SERVICE_LINKS: ReadonlyArray<{ href: string; label: string; icon: IconName }> = [
+  { href: "/private-chef", label: "Private Chef", icon: "chef-hat" },
+  { href: "/catering", label: "Catering", icon: "events" },
+  { href: "/consulting", label: "Consulting", icon: "consult" },
+];
 
-export const FOOTER_LINKS = [
-  { href: "/about", label: "About" },
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/craft", label: "Craft" },
-  { href: "/recipes", label: "Recipes" },
-  { href: "/techniques", label: "Techniques" },
-  { href: "/blog", label: "Blog" },
-  { href: "/ai", label: "Ask Chef" },
-  { href: "/businesses", label: "Businesses" },
-  { href: "/concepts", label: "Concepts" },
-  { href: "/private-chef", label: "Private Chef" },
-  { href: "/catering", label: "Catering" },
-  { href: "/consulting", label: "Consulting" },
-  { href: "/contact", label: "Contact" },
-] as const;
+export const FOOTER_LINKS: ReadonlyArray<{ href: string; label: string; icon: IconName }> = [
+  { href: "/about", label: "About", icon: "user" },
+  { href: "/portfolio", label: "Portfolio", icon: "images" },
+  { href: "/craft", label: "Craft", icon: "knife" },
+  { href: "/recipes", label: "Recipes", icon: "recipe" },
+  { href: "/techniques", label: "Techniques", icon: "technique" },
+  { href: "/blog", label: "Blog", icon: "newspaper" },
+  { href: "/ai", label: "Ask Chef", icon: "spark" },
+  { href: "/businesses", label: "Businesses", icon: "building" },
+  { href: "/concepts", label: "Concepts", icon: "flame" },
+  { href: "/private-chef", label: "Private Chef", icon: "chef-hat" },
+  { href: "/catering", label: "Catering", icon: "events" },
+  { href: "/consulting", label: "Consulting", icon: "consult" },
+  { href: "/contact", label: "Contact", icon: "mail" },
+];
 
 export const SERVICES = [
   {
@@ -82,6 +84,13 @@ export const SERVICES = [
     href: "/consulting",
   },
 ] as const;
+
+export const ABOUT_HIGHLIGHTS: ReadonlyArray<{ text: string; icon: IconName }> = [
+  { text: "Diploma in Professional Cookery and Kitchen Management", icon: "graduation" },
+  { text: "International Hotel School graduate", icon: "check" },
+  { text: "Professional kitchen experience on the line", icon: "kitchen" },
+  { text: `Building ventures under ${BRAND.legal}`, icon: "rocket" },
+];
 
 export const SIGNATURE_DISHES = [
   {
@@ -117,13 +126,20 @@ export const SIGNATURE_DISHES = [
 /** Re-export gallery for home/portfolio parity */
 export { GALLERY_ITEMS } from "@/lib/gallery";
 
-export const TIMELINE = [
+export const TIMELINE: ReadonlyArray<{
+  period: string;
+  title: string;
+  org: string;
+  description: string;
+  icon: IconName;
+}> = [
   {
     period: "2022 – 2024",
     title: "Culinary Education",
     org: "International Hotel School",
     description:
       "Formal training in professional cookery and kitchen management — building the technical foundation for fine dining and hospitality entrepreneurship.",
+    icon: "graduation",
   },
   {
     period: "2024 – Present",
@@ -131,6 +147,7 @@ export const TIMELINE = [
     org: "Line Cook",
     description:
       "Hands-on experience on the line — refining speed, consistency, and the discipline required in professional kitchens.",
+    icon: "kitchen",
   },
   {
     period: "In Development",
@@ -138,24 +155,45 @@ export const TIMELINE = [
     org: "Kamohelo Culinary Group",
     description:
       "Developing ghost kitchen concepts, private chef services, and culinary brands under one umbrella vision.",
+    icon: "rocket",
   },
-] as const;
+];
 
-export const INQUIRY_TYPES = [
+export const INQUIRY_TYPES: ReadonlyArray<{
+  title: string;
+  description: string;
+  icon: IconName;
+  type: "private-chef" | "catering" | "consulting" | "general";
+}> = [
   {
     title: "Private Chef",
     description: "In-home dining, romantic dinners, and intimate gatherings.",
+    icon: "chef-hat",
+    type: "private-chef",
   },
   {
     title: "Catering",
     description: "Weddings, corporate events, and private functions.",
+    icon: "events",
+    type: "catering",
   },
   {
     title: "Consulting",
     description: "Menu development, kitchen planning, and culinary strategy.",
+    icon: "consult",
+    type: "consulting",
   },
   {
     title: "General Inquiry",
     description: "Partnerships, media, and other questions.",
+    icon: "message",
+    type: "general",
   },
-] as const;
+];
+
+export const CONTACT_TIPS: ReadonlyArray<{ text: string; icon: IconName }> = [
+  { text: "Event date & type", icon: "calendar" },
+  { text: "Approximate guest count", icon: "users" },
+  { text: "Location & venue", icon: "map-pin" },
+  { text: "Dietary preferences or themes", icon: "leaf" },
+];

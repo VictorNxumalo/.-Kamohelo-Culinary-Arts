@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { InquiryForm } from "@/components/forms/InquiryForm";
+import { Icon, IconBox } from "@/components/icons/Icon";
 import { Logo } from "@/components/Logo";
-import { BRAND, CONTACT } from "@/lib/constants";
+import { BRAND, CONTACT, CONTACT_TIPS, INQUIRY_TYPES } from "@/lib/constants";
 import { normalizeInquiryType } from "@/lib/inquiry";
 
 export const metadata: Metadata = {
@@ -49,23 +51,57 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 </p>
               </div>
 
-              <div className="mt-10 flex flex-col items-center justify-center gap-8 border-y border-black/5 py-10 md:flex-row md:gap-16">
+              <div className="mt-10 flex flex-col items-stretch justify-center gap-6 border-y border-black/5 py-10 md:flex-row md:items-center md:gap-8">
                 <a
                   href={`mailto:${CONTACT.email}`}
-                  className="group text-center transition-colors duration-300"
+                  className="group flex flex-1 items-center gap-4 transition-colors duration-300"
                 >
-                  <span className="sub-label text-brand-gold">Email</span>
-                  <p className="mt-2 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
-                    {CONTACT.email}
-                  </p>
+                  <IconBox name="mail" className="mb-0" />
+                  <div className="text-left">
+                    <span className="sub-label text-brand-gold">Email</span>
+                    <p className="mt-1 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
+                      {CONTACT.email}
+                    </p>
+                  </div>
                 </a>
                 <div className="hidden h-12 w-px bg-black/10 md:block" />
-                <a href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} className="group text-center">
-                  <span className="sub-label text-brand-gold">Phone</span>
-                  <p className="mt-2 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
-                    {CONTACT.phone}
-                  </p>
+                <a
+                  href={`tel:${CONTACT.phone.replace(/\s/g, "")}`}
+                  className="group flex flex-1 items-center gap-4"
+                >
+                  <IconBox name="phone" className="mb-0" />
+                  <div className="text-left">
+                    <span className="sub-label text-brand-gold">Phone</span>
+                    <p className="mt-1 font-body text-sm text-brand-text-dark group-hover:text-brand-gold">
+                      {CONTACT.phone}
+                    </p>
+                  </div>
                 </a>
+              </div>
+
+              <div className="mt-12">
+                <h3 className="brand-caps text-center text-xs text-brand-text-dark">
+                  How Can We Help?
+                </h3>
+                <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {INQUIRY_TYPES.map((item) => (
+                    <Link
+                      key={item.type}
+                      href={`/contact?type=${item.type}`}
+                      className="card-light group flex items-start gap-4 border border-black/5 p-4 transition-colors hover:border-brand-gold/40"
+                    >
+                      <IconBox name={item.icon} className="mb-0 h-10 w-10" size={18} />
+                      <div>
+                        <h4 className="brand-caps text-xs text-brand-text-dark group-hover:text-brand-gold">
+                          {item.title}
+                        </h4>
+                        <p className="mt-1 font-body text-xs font-light text-stone-600">
+                          {item.description}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               <div className="mt-12">
@@ -80,11 +116,16 @@ export default async function ContactPage({ searchParams }: ContactPageProps) {
                 <h4 className="brand-caps text-center text-xs text-brand-text-dark">
                   What to Include
                 </h4>
-                <ul className="mt-6 grid gap-4 text-center font-body text-sm font-light text-stone-600 sm:grid-cols-2">
-                  <li>Event date & type</li>
-                  <li>Approximate guest count</li>
-                  <li>Location & venue</li>
-                  <li>Dietary preferences or themes</li>
+                <ul className="mt-6 grid gap-4 sm:grid-cols-2">
+                  {CONTACT_TIPS.map((tip) => (
+                    <li
+                      key={tip.text}
+                      className="flex items-center justify-center gap-2 text-center font-body text-sm font-light text-stone-600 sm:justify-start"
+                    >
+                      <Icon name={tip.icon} size={16} className="shrink-0 text-brand-gold" />
+                      {tip.text}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </div>

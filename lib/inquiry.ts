@@ -1,3 +1,5 @@
+import type { IconName } from "./icons";
+
 export const INQUIRY_TYPE_VALUES = [
   "private-chef",
   "catering",
@@ -12,6 +14,13 @@ export const INQUIRY_TYPE_LABELS: Record<InquiryType, string> = {
   catering: "Catering",
   consulting: "Consulting",
   general: "General Inquiry",
+};
+
+export const INQUIRY_TYPE_ICONS: Record<InquiryType, IconName> = {
+  "private-chef": "chef-hat",
+  catering: "events",
+  consulting: "consult",
+  general: "message",
 };
 
 export type InquiryPayload = {

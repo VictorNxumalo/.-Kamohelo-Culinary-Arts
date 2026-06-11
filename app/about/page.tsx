@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { Icon, IconBox } from "@/components/icons/Icon";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND, BRAND_STATEMENT, EDUCATION, TIMELINE } from "@/lib/constants";
 
@@ -56,6 +57,7 @@ export default function AboutPage() {
             </FadeIn>
             <FadeIn delay={100}>
               <div className="gold-border-accent">
+                <IconBox name="leaf" className="mb-4" />
                 <h3 className="brand-caps text-sm text-brand-text-dark">Culinary Philosophy</h3>
                 <p className="mt-4 font-body text-base font-light leading-relaxed text-stone-600">
                   Precision meets creativity. Every plate should tell a story — of ingredients respected,
@@ -93,7 +95,10 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <div className="flex-1 text-center md:text-left">
-                  <span className="sub-label text-brand-gold">Formal Education</span>
+                  <div className="flex items-center justify-center gap-2 md:justify-start">
+                    <Icon name="graduation" size={16} className="text-brand-gold" />
+                    <span className="sub-label text-brand-gold">Formal Education</span>
+                  </div>
                   <h3 className="brand-caps mt-3 text-xl text-brand-text-dark">
                     {EDUCATION.institution}
                   </h3>
@@ -101,16 +106,23 @@ export default function AboutPage() {
                     {EDUCATION.qualification}
                   </p>
                   <div className="mt-6 flex flex-wrap justify-center gap-6 md:justify-start">
-                    <span className="font-body text-sm text-stone-500">{EDUCATION.dates}</span>
-                    <span className="font-body text-sm text-stone-500">South Africa</span>
+                    <span className="inline-flex items-center gap-2 font-body text-sm text-stone-500">
+                      <Icon name="calendar" size={14} className="text-brand-gold" />
+                      {EDUCATION.dates}
+                    </span>
+                    <span className="inline-flex items-center gap-2 font-body text-sm text-stone-500">
+                      <Icon name="map-pin" size={14} className="text-brand-gold" />
+                      South Africa
+                    </span>
                   </div>
                   <a
                     href={EDUCATION.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary mt-8 inline-flex border-brand-gold text-brand-gold"
+                    className="btn-primary mt-8 inline-flex items-center gap-2 border-brand-gold text-brand-gold"
                   >
                     Discover International Hotel School
+                    <Icon name="external" size={14} />
                   </a>
                 </div>
               </div>
@@ -135,9 +147,12 @@ export default function AboutPage() {
                 <article className="timeline-dot relative">
                   <div className="card-light p-6">
                     <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div>
+                      <div className="flex items-start gap-4">
+                        <IconBox name={item.icon} className="mb-0 h-10 w-10" size={18} />
+                        <div>
                         <h3 className="brand-caps text-sm text-brand-text-dark">{item.title}</h3>
                         <p className="mt-1 font-body text-sm font-medium text-brand-gold">{item.org}</p>
+                        </div>
                       </div>
                       <span className="sub-label text-stone-400">{item.period}</span>
                     </div>
@@ -162,7 +177,8 @@ export default function AboutPage() {
               description={BRAND_STATEMENT}
               dark
             />
-            <Link href="/contact" className="btn-primary-solid mt-8">
+            <Link href="/contact" className="btn-primary-solid mt-8 inline-flex items-center gap-2">
+              <Icon name="mail" size={16} />
               Get in Touch
             </Link>
           </FadeIn>

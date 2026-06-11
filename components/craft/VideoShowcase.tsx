@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/icons/Icon";
 
 export function VideoShowcase() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -63,9 +64,7 @@ export function VideoShowcase() {
             aria-label="Play craft showcase video"
           >
             <span className="mb-6 flex h-20 w-20 items-center justify-center rounded-full border border-white/20 bg-white/10 backdrop-blur-sm md:h-24 md:w-24">
-              <svg className="ml-1 h-8 w-8 text-white" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M8 5v14l11-7z" />
-              </svg>
+              <Icon name="play" size={32} className="ml-1 text-white" strokeWidth={1.5} />
             </span>
             <span className="brand-caps text-sm text-brand-cream">Play Craft Showcase</span>
             <span className="mt-2 font-body text-xs text-brand-cream-muted">Culinary Precision</span>

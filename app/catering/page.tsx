@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { FadeIn } from "@/components/FadeIn";
 import { FormSection } from "@/components/forms/FormSection";
+import { FeatureCard } from "@/components/ui/FeatureCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND } from "@/lib/constants";
 import { GALLERY_ITEMS } from "@/lib/gallery";
@@ -47,12 +48,11 @@ export default function CateringPage() {
           <div className="grid gap-6 sm:grid-cols-2">
             {CATERING_EVENT_TYPES.map((event, i) => (
               <FadeIn key={event.title} delay={i * 60}>
-                <article className="card-light p-6">
-                  <h3 className="brand-caps text-sm text-brand-text-dark">{event.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light text-stone-600">
-                    {event.description}
-                  </p>
-                </article>
+                <FeatureCard
+                  icon={event.icon}
+                  title={event.title}
+                  description={event.description}
+                />
               </FadeIn>
             ))}
           </div>
@@ -71,12 +71,12 @@ export default function CateringPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {CATERING_FORMATS.map((format, i) => (
               <FadeIn key={format.title} delay={i * 60}>
-                <article className="card-light h-full p-6">
-                  <h3 className="brand-caps text-xs text-brand-gold">{format.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light text-stone-600">
-                    {format.description}
-                  </p>
-                </article>
+                <FeatureCard
+                  icon={format.icon}
+                  title={format.title}
+                  description={format.description}
+                  titleClassName="brand-caps text-xs text-brand-gold"
+                />
               </FadeIn>
             ))}
           </div>

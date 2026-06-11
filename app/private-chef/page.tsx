@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { FadeIn } from "@/components/FadeIn";
 import { FormSection } from "@/components/forms/FormSection";
+import { IconBox } from "@/components/icons/Icon";
+import { FeatureCard } from "@/components/ui/FeatureCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND } from "@/lib/constants";
 import {
@@ -45,12 +47,12 @@ export default function PrivateChefPage() {
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {PRIVATE_CHEF_SERVICES.map((service, i) => (
               <FadeIn key={service.title} delay={i * 60}>
-                <article className="card-light h-full border-l-2 border-brand-gold/40 p-6">
-                  <h3 className="brand-caps text-sm text-brand-text-dark">{service.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-stone-600">
-                    {service.description}
-                  </p>
-                </article>
+                <FeatureCard
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  className="border-l-2 border-brand-gold/40"
+                />
               </FadeIn>
             ))}
           </div>
@@ -71,8 +73,9 @@ export default function PrivateChefPage() {
             {BOOKING_STEPS.map((step, i) => (
               <FadeIn key={step.title} delay={i * 80}>
                 <article className="card-dark flex gap-6 p-6 md:p-8">
-                  <span className="brand-caps shrink-0 text-2xl text-brand-gold">{step.step}</span>
+                  <IconBox name={step.icon} variant="dark" className="mb-0 h-12 w-12" />
                   <div>
+                    <span className="sub-label text-brand-text-muted">{step.step}</span>
                     <h3 className="brand-caps text-sm text-brand-cream">{step.title}</h3>
                     <p className="mt-2 font-body text-sm font-light text-brand-cream-muted">
                       {step.description}
@@ -97,7 +100,8 @@ export default function PrivateChefPage() {
           <div className="grid gap-6 md:grid-cols-3">
             {SAMPLE_MENUS.map((menu, i) => (
               <FadeIn key={menu.name} delay={i * 80}>
-                <article className="card-light h-full p-6">
+                <article className="card-light group h-full p-6">
+                  <IconBox name={menu.icon} className="mb-4" size={20} />
                   <h3 className="brand-caps text-sm text-brand-gold">{menu.name}</h3>
                   <p className="mt-2 font-body text-xs text-stone-500">{menu.courses}</p>
                   <ul className="mt-4 space-y-2 border-t border-black/5 pt-4">

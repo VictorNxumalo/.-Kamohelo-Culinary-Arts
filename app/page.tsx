@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
-import { ServiceIcon } from "@/components/ServiceIcon";
+import { Icon, IconBox } from "@/components/icons/Icon";
 import { BlogCard } from "@/components/blog/BlogCard";
 import {
+  ABOUT_HIGHLIGHTS,
   BRAND,
   BRAND_STATEMENT,
   HERO_SUBHEADLINE,
@@ -100,22 +101,12 @@ export default function HomePage() {
             <FadeIn delay={100}>
               <div className="gold-border-accent card-light p-8">
                 <ul className="space-y-4 font-body text-sm font-light text-stone-600 md:text-base">
-                  <li className="flex gap-3">
-                    <span className="text-brand-gold">—</span>
-                    Diploma in Professional Cookery and Kitchen Management
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-brand-gold">—</span>
-                    International Hotel School graduate
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-brand-gold">—</span>
-                    Professional kitchen experience on the line
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="text-brand-gold">—</span>
-                    Building ventures under {BRAND.legal}
-                  </li>
+                  {ABOUT_HIGHLIGHTS.map((item) => (
+                    <li key={item.text} className="flex items-start gap-3">
+                      <Icon name={item.icon} size={18} className="mt-0.5 shrink-0 text-brand-gold" />
+                      {item.text}
+                    </li>
+                  ))}
                 </ul>
               </div>
             </FadeIn>
@@ -137,9 +128,7 @@ export default function HomePage() {
             {SERVICES.map((service, i) => {
               const inner = (
                 <>
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center border border-brand-gold/30 text-brand-gold transition-colors duration-300 group-hover:border-brand-gold group-hover:bg-brand-gold/5">
-                    <ServiceIcon name={service.icon} />
-                  </div>
+                  <IconBox name={service.icon} />
                   <h3 className="brand-caps text-sm text-brand-text-dark">{service.title}</h3>
                   <p className="mt-3 font-body text-sm font-light leading-relaxed text-stone-600">
                     {service.description}
@@ -257,7 +246,8 @@ export default function HomePage() {
               description="A cinematic study of knife work, technique, and the disciplined art of culinary precision."
               dark
             />
-            <Link href="/craft" className="btn-secondary mt-4">
+            <Link href="/craft" className="btn-secondary mt-4 inline-flex items-center gap-2">
+              <Icon name="play" size={16} />
               Watch Craft in Motion
             </Link>
           </FadeIn>
@@ -286,13 +276,15 @@ export default function HomePage() {
                   placeholder="Search recipes, techniques, ingredients…"
                   className="input-ask min-w-0 flex-1"
                 />
-                <button type="submit" className="btn-primary-solid shrink-0 px-6">
+                <button type="submit" className="btn-primary-solid inline-flex shrink-0 items-center gap-2 px-6">
+                  <Icon name="search" size={16} />
                   Search
                 </button>
               </div>
             </form>
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/ai" className="btn-primary-solid">
+              <Link href="/ai" className="btn-primary-solid inline-flex items-center gap-2">
+                <Icon name="spark" size={16} />
                 Launch Culinary AI
               </Link>
               <Link href="/recipes" className="btn-secondary">

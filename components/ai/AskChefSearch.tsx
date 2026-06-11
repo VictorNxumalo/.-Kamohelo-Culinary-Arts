@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { FadeIn } from "@/components/FadeIn";
+import { Icon } from "@/components/icons/Icon";
 import { SearchResultCard } from "@/components/ai/SearchResultCard";
 import type { AskResponse } from "@/lib/ai/types";
 
@@ -70,21 +71,27 @@ export function AskChefSearch({ initialQuery = "" }: AskChefSearchProps) {
           Search Chef Kamohelo&apos;s culinary library
         </label>
         <div className="relative">
+          <Icon
+            name="search"
+            size={18}
+            className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-brand-cream-muted"
+          />
           <input
             id="ask-query"
             type="search"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search recipes, techniques, ingredients, ventures…"
-            className="input-ask w-full pr-14"
+            className="input-ask w-full pl-11 pr-24"
             autoComplete="off"
             disabled={loading}
           />
           <button
             type="submit"
             disabled={loading || !query.trim()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-brand-gold px-4 py-2 font-display text-xs uppercase tracking-wide text-brand-bg transition-colors hover:bg-brand-gold-hover disabled:opacity-50"
+            className="absolute right-2 top-1/2 inline-flex -translate-y-1/2 items-center gap-1.5 bg-brand-gold px-4 py-2 font-display text-xs uppercase tracking-wide text-brand-bg transition-colors hover:bg-brand-gold-hover disabled:opacity-50"
           >
+            <Icon name="spark" size={14} />
             {loading ? "…" : "Search"}
           </button>
         </div>

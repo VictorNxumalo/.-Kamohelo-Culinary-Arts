@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { FormSection } from "@/components/forms/FormSection";
+import { FeatureCard } from "@/components/ui/FeatureCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND } from "@/lib/constants";
 import { CONSULTING_SERVICES } from "@/lib/services-content";
@@ -42,12 +43,13 @@ export default function ConsultingPage() {
           <div className="space-y-4">
             {CONSULTING_SERVICES.map((service, i) => (
               <FadeIn key={service.title} delay={i * 60}>
-                <article className="card-light gold-border-accent p-6">
-                  <h3 className="brand-caps text-sm text-brand-text-dark">{service.title}</h3>
-                  <p className="mt-2 font-body text-sm font-light text-stone-600">
-                    {service.description}
-                  </p>
-                </article>
+                <FeatureCard
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  className="gold-border-accent"
+                  descriptionClassName="mt-2 font-body text-sm font-light text-stone-600"
+                />
               </FadeIn>
             ))}
           </div>

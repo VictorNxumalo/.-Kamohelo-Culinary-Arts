@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { Icon, IconBox } from "@/components/icons/Icon";
 import { SectionHeading } from "@/components/SectionHeading";
+import type { IconName } from "@/lib/icons";
 import { VideoShowcase } from "@/components/craft/VideoShowcase";
 import { BRAND, EDUCATION } from "@/lib/constants";
 
@@ -12,7 +14,12 @@ export const metadata: Metadata = {
     "A cinematic study of culinary precision, technique, and the disciplined craft of Chef Kamohelo Mthombeni.",
 };
 
-const SKILL_CARDS = [
+const SKILL_CARDS: ReadonlyArray<{
+  title: string;
+  description: string;
+  meta: readonly [string, string];
+  icon: IconName;
+}> = [
   {
     title: "Knife Precision",
     description:
@@ -25,7 +32,7 @@ const SKILL_CARDS = [
     description:
       "Transforming humble ingredients into consistent, beautiful components through precise cuts and texture.",
     meta: ["Seasonal Focus", "Meticulous"],
-    icon: "vegetable",
+    icon: "carrot",
   },
   {
     title: "Ingredient Respect",
@@ -34,20 +41,7 @@ const SKILL_CARDS = [
     meta: ["Farm-to-Table", "Ethical Focus"],
     icon: "heart",
   },
-] as const;
-
-function SkillIcon({ type }: { type: string }) {
-  const paths: Record<string, string> = {
-    knife: "M12 3v18M9 3v6a3 3 0 006 0V3",
-    vegetable: "M12 3c-2 4-6 5-6 10a6 6 0 1012 0c0-5-4-6-6-10z",
-    heart: "M12 8c-2-4-8-4-8 0 0 4 8 8 12 8-4 8-8 8-8s-6-4-8 0z",
-  };
-  return (
-    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.25}>
-      <path strokeLinecap="round" strokeLinejoin="round" d={paths[type] ?? paths.knife} />
-    </svg>
-  );
-}
+];
 
 export default function CraftPage() {
   return (
@@ -65,8 +59,8 @@ export default function CraftPage() {
               Where discipline meets creativity, and every movement tells a story of mastery.
             </p>
             <a href="#video" className="btn-secondary mt-10 inline-flex items-center gap-2">
+              <Icon name="play" size={16} />
               Witness the Craft
-              <span aria-hidden="true">↓</span>
             </a>
           </FadeIn>
         </div>
@@ -108,9 +102,7 @@ export default function CraftPage() {
             {SKILL_CARDS.map((skill, i) => (
               <FadeIn key={skill.title} delay={i * 80}>
                 <article className="card-light group h-full p-8 transition-shadow duration-500 hover:shadow-md">
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center border border-brand-gold/30 text-brand-gold transition-colors group-hover:border-brand-gold">
-                    <SkillIcon type={skill.icon} />
-                  </div>
+                  <IconBox name={skill.icon} />
                   <h3 className="brand-caps text-sm text-brand-text-dark">{skill.title}</h3>
                   <p className="mt-3 font-body text-sm font-light leading-relaxed text-stone-600">
                     {skill.description}
@@ -165,7 +157,7 @@ export default function CraftPage() {
           </FadeIn>
           <div className="grid gap-12 md:grid-cols-2">
             <FadeIn>
-              <div className="gold-rule mb-6" />
+              <IconBox name="kitchen" variant="dark" className="mb-6" />
               <h3 className="brand-caps text-sm text-brand-cream">The Quiet Kitchen</h3>
               <p className="mt-4 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
                 In professional kitchens, noise is distraction. The most skilled chefs work with focused
@@ -183,7 +175,7 @@ export default function CraftPage() {
               </ul>
             </FadeIn>
             <FadeIn delay={100}>
-              <div className="gold-rule mb-6" />
+              <IconBox name="knife" variant="dark" className="mb-6" />
               <h3 className="brand-caps text-sm text-brand-cream">Tools as Extensions</h3>
               <p className="mt-4 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
                 A chef&apos;s knife is an extension of their hand, their intention, and their respect for
@@ -256,7 +248,8 @@ export default function CraftPage() {
               pleasure.
             </p>
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-              <Link href="/contact" className="btn-primary-solid">
+              <Link href="/contact" className="btn-primary-solid inline-flex items-center gap-2">
+                <Icon name="chef-hat" size={16} />
                 Book a Culinary Experience
               </Link>
               <Link href="/portfolio" className="btn-primary border-brand-gold text-brand-gold">
