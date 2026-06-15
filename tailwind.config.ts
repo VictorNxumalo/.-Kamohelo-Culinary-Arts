@@ -42,7 +42,7 @@ const config: Config = {
       boxShadow: {
         gold: "0 0 40px rgba(198, 162, 101, 0.22)",
         "gold-sm": "0 0 20px rgba(198, 162, 101, 0.15)",
-        "card-lift": "0 24px 48px rgba(0, 0, 0, 0.35)",
+        "card-lift": "0 20px 44px rgba(0, 0, 0, 0.32)",
         "card-lift-light": "0 20px 40px rgba(26, 26, 26, 0.08)",
       },
       animation: {

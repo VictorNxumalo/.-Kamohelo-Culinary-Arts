@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/FadeIn";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { BRAND } from "@/lib/constants";
 import { showDraftBadge } from "@/lib/content-visibility";
 import { draftRobots } from "@/lib/metadata-helpers";
@@ -55,6 +56,13 @@ export default async function TechniquePage({ params }: TechniquePageProps) {
     <section className="section-dark py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-6">
         <FadeIn>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Techniques", href: "/techniques" },
+              { label: technique.title },
+            ]}
+          />
           {showDraftBadge(technique.draft) && (
             <span className="sub-label text-brand-text-muted">Draft</span>
           )}

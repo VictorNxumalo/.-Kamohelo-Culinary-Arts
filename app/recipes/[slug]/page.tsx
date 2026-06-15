@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/FadeIn";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { RecipeDetail, recipeJsonLd } from "@/components/recipes/RecipeDetail";
 import { draftRobots } from "@/lib/metadata-helpers";
 import { BRAND } from "@/lib/constants";
@@ -61,6 +62,13 @@ export default async function RecipePage({ params }: RecipePageProps) {
       <section className="section-dark py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Recipes", href: "/recipes" },
+                { label: recipe.title },
+              ]}
+            />
             <RecipeDetail recipe={recipe} />
           </FadeIn>
         </div>

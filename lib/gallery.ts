@@ -5,6 +5,7 @@ export type GalleryItem = {
   image: string;
   tags: string[];
   featured?: boolean;
+  recipeSlug?: string;
 };
 
 export const GALLERY_FILTERS = [
@@ -28,6 +29,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: "/assets/dishes/Pan-Seared White Fish Fillet.jpeg",
     tags: ["seafood", "fine-dining", "signature"],
     featured: true,
+    recipeSlug: "pan-seared-white-fish",
   },
   {
     id: 2,
@@ -37,6 +39,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: "/assets/dishes/Chicken roulade.jpeg",
     tags: ["meat", "fine-dining", "signature"],
     featured: true,
+    recipeSlug: "chicken-roulade",
   },
   {
     id: 3,
@@ -46,6 +49,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: "/assets/dishes/Rack of lamb.jpeg",
     tags: ["meat", "fine-dining"],
     featured: false,
+    recipeSlug: "frenched-rack-of-lamb",
   },
   {
     id: 4,
@@ -54,6 +58,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: "/assets/dishes/chocolate lava cake .jpeg",
     tags: ["desserts", "signature"],
     featured: true,
+    recipeSlug: "chocolate-lava-cake",
   },
   {
     id: 5,

@@ -12,14 +12,14 @@ export function GalleryCard({ item, onClick }: GalleryCardProps) {
     <button
       type="button"
       onClick={onClick}
-      className="group relative w-full overflow-hidden rounded-sm bg-brand-bg text-left shadow-md transition-all duration-500 ease-premium active:scale-[0.98] hover:-translate-y-2 hover:shadow-card-lift"
+      className="group relative w-full overflow-hidden rounded-sm border border-transparent bg-brand-bg text-left shadow-md transition-all duration-500 ease-premium active:scale-[0.98] hover:-translate-y-2 hover:border-brand-gold/40 hover:shadow-card-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
     >
       <div className="relative aspect-[4/5] overflow-hidden">
         <Image
           src={item.image}
           alt={item.title}
           fill
-          className="object-cover transition-transform duration-700 group-hover:scale-110"
+          className="image-card-vignette object-cover transition-transform duration-700 group-hover:scale-110"
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
         />
         <div className="image-card-overlay">

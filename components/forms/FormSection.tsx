@@ -29,7 +29,7 @@ export function FormSection({
             {title}
           </h2>
           <div className="gold-rule-wide mt-6" />
-          <p className="mx-auto mt-6 max-w-lg text-center font-body text-sm font-light text-brand-cream-muted">
+          <p className="mx-auto mt-6 max-w-lg text-center body-readable">
             {description}
           </p>
           <div className="card-dark mt-10 p-8 md:p-10">

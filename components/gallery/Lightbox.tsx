@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useRef } from "react";
 import type { GalleryItem } from "@/lib/gallery";
 import { formatTagLabel } from "@/lib/gallery";
 
@@ -14,6 +15,7 @@ type LightboxProps = {
 
 export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
   const item = items[index];
+  const touchStartX = useRef<number | null>(null);
 
   const goNext = useCallback(() => {
     onNavigate((index + 1) % items.length);
@@ -40,11 +42,28 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
     };
   }, []);
 
+  const recipeSlug = item?.recipeSlug;
+
+  function handleTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0]?.clientX ?? null;
+  }
+
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0]?.clientX ?? touchStartX.current;
+    const delta = touchEndX - touchStartX.current;
+    if (Math.abs(delta) > 50) {
+      if (delta < 0) goNext();
+      else goPrev();
+    }
+    touchStartX.current = null;
+  }
+
   if (!item) return null;
 
   return (
     <div
-      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/92 p-4"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/92 p-4 motion-reduce:animate-none"
       role="dialog"
       aria-modal="true"
       aria-label={`${item.title} — image viewer`}
@@ -53,7 +72,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
       <button
         type="button"
         onClick={onClose}
-        className="absolute right-6 top-6 font-body text-3xl text-brand-cream transition-colors hover:text-brand-gold"
+        className="absolute right-4 top-4 flex h-11 w-11 items-center justify-center rounded-full border border-brand-gold/50 bg-brand-bg/60 font-body text-2xl text-brand-cream backdrop-blur-sm transition-colors hover:border-brand-gold hover:text-brand-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold md:right-6 md:top-6"
         aria-label="Close lightbox"
       >
         ×
@@ -66,7 +85,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
             e.stopPropagation();
             goPrev();
           }}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/30 bg-brand-gold/10 text-brand-cream backdrop-blur-sm transition-colors hover:bg-brand-gold/30 md:h-14 md:w-14"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/40 bg-brand-gold/10 text-brand-cream backdrop-blur-sm transition-colors hover:border-brand-gold hover:bg-brand-gold/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold md:h-14 md:w-14"
           aria-label="Previous image"
         >
           ‹
@@ -77,7 +96,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
             e.stopPropagation();
             goNext();
           }}
-          className="flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/30 bg-brand-gold/10 text-brand-cream backdrop-blur-sm transition-colors hover:bg-brand-gold/30 md:h-14 md:w-14"
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-brand-gold/40 bg-brand-gold/10 text-brand-cream backdrop-blur-sm transition-colors hover:border-brand-gold hover:bg-brand-gold/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold md:h-14 md:w-14"
           aria-label="Next image"
         >
           ›
@@ -85,8 +104,10 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
       </div>
 
       <div
-        className="relative max-h-[85vh] w-full max-w-4xl"
+        className="lightbox-enter relative max-h-[85vh] w-full max-w-4xl"
         onClick={(e) => e.stopPropagation()}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
       >
         <div className="relative mx-auto aspect-[4/3] max-h-[70vh] w-full">
           <Image
@@ -103,10 +124,25 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
           <p className="mt-2 font-body text-sm font-light text-brand-cream-muted">
             {item.description}
           </p>
-          <p className="mt-3 font-body text-xs text-brand-text-muted">
-            {item.tags.map(formatTagLabel).join(" · ")}
-          </p>
-          <p className="mt-2 font-body text-xs text-brand-text-muted">
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            {item.tags.map((tag) => (
+              <span
+                key={tag}
+                className="border border-brand-gold/40 bg-brand-gold/10 px-2.5 py-1 font-body text-[10px] uppercase tracking-wide text-brand-gold"
+              >
+                {formatTagLabel(tag)}
+              </span>
+            ))}
+          </div>
+          {recipeSlug && (
+            <Link
+              href={`/recipes/${recipeSlug}`}
+              className="btn-primary mt-5 inline-flex items-center gap-2 border-brand-gold text-brand-gold text-xs"
+            >
+              View Recipe
+            </Link>
+          )}
+          <p className="mt-4 font-body text-xs text-brand-text-muted">
             {index + 1} of {items.length}
           </p>
         </div>

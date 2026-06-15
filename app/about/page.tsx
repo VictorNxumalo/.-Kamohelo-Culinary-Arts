@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { Icon, IconBox } from "@/components/icons/Icon";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND, BRAND_STATEMENT, EDUCATION, TIMELINE } from "@/lib/constants";
 
@@ -17,6 +18,12 @@ export default function AboutPage() {
       <section className="section-dark py-16 md:py-20">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "About" },
+              ]}
+            />
             <p className="sub-label text-brand-gold">About</p>
             <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl">
               {BRAND.chefShort}
@@ -59,7 +66,10 @@ export default function AboutPage() {
               <div className="gold-border-accent">
                 <IconBox name="leaf" className="mb-4" />
                 <h3 className="brand-caps text-sm text-brand-cream">Culinary Philosophy</h3>
-                <p className="mt-4 font-body text-base font-light leading-relaxed text-brand-cream-muted">
+                <blockquote className="mt-4 font-accent text-lg font-normal leading-relaxed text-brand-cream/90">
+                  Precision meets creativity.
+                </blockquote>
+                <p className="mt-4 body-readable">
                   Precision meets creativity. Every plate should tell a story — of ingredients respected,
                   technique refined, and hospitality felt. I believe in seasonality, consistency, and the
                   quiet discipline of a well-run kitchen.

@@ -71,7 +71,22 @@ Rhythm uses **depth**, not light vs dark bands:
 .sub-label { uppercase + tracking-label + font-light }
 .bg-brand-grain { charcoal + SVG noise overlay }
 .gold-rule / .gold-rule-wide { thin gold dividers }
+.body-readable { text-base leading-relaxed on dark surfaces }
+.form-section-label { gold section divider for form groups }
+.trust-strip { elevated credibility band below hero }
+.filter-pill.active { gold border + subtle gold fill (not solid fill) }
+.image-card-vignette { inset shadow for food imagery depth }
+.sticky-book-cta { mobile-only fixed booking bar with safe-area padding }
 ```
+
+### Surface hierarchy (Phase polish)
+
+| Element | Enhancement |
+|---------|-------------|
+| `.section-light` | Warmer `#161616` lift with top/bottom border + `surface-warm` gradient |
+| `.card-dark` / `.card-light` | Top-edge highlight, softer shadow, gold hover border |
+| `.input-light:focus` | Gold ring + ambient glow |
+| `html` | `scroll-padding-top: var(--header-height)` for anchor links |
 
 ### Texture & atmosphere
 

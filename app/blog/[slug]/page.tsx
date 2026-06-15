@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { FadeIn } from "@/components/FadeIn";
 import { BlogPost, blogPostJsonLd } from "@/components/blog/BlogPost";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { BRAND } from "@/lib/constants";
 import { getPostBySlug, getPostSlugs } from "@/lib/blog-loader";
 import { draftRobots } from "@/lib/metadata-helpers";
@@ -56,6 +57,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       <section className="section-dark py-16 md:py-24">
         <div className="mx-auto max-w-3xl px-6">
           <FadeIn>
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Journal", href: "/blog" },
+                { label: post.title },
+              ]}
+            />
             <BlogPost post={post} />
           </FadeIn>
         </div>

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/icons/Icon";
+import { useNav } from "@/components/layout/NavContext";
 import { Logo } from "@/components/Logo";
 import { NAV_LINKS, SERVICE_LINKS } from "@/lib/constants";
 
@@ -19,9 +20,13 @@ function isJournalPath(pathname: string) {
   return pathname === "/blog" || pathname.startsWith("/blog/");
 }
 
+function isRecipesPath(pathname: string) {
+  return pathname === "/recipes" || pathname.startsWith("/recipes/");
+}
+
 export function Header() {
   const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const { mobileOpen, setMobileOpen } = useNav();
   const [servicesOpen, setServicesOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -35,7 +40,7 @@ export function Header() {
   useEffect(() => {
     setMobileOpen(false);
     setServicesOpen(false);
-  }, [pathname]);
+  }, [pathname, setMobileOpen]);
 
   useEffect(() => {
     document.body.style.overflow = mobileOpen ? "hidden" : "";
@@ -51,13 +56,13 @@ export function Header() {
       }`}
     >
       <div
-        className={`mx-auto flex max-w-6xl items-center justify-between px-6 transition-all duration-500 ease-premium ${
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 transition-all duration-500 ease-premium ${
           scrolled ? "py-3" : "py-4"
         }`}
       >
         <Logo variant="full" priority />
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="Main navigation">
+        <nav className="hidden items-center gap-6 lg:gap-8 md:flex" aria-label="Main navigation">
           {NAV_LINKS.slice(0, 2).map((link) => (
             <Link
               key={link.href}
@@ -115,8 +120,10 @@ export function Header() {
               href={link.href}
               className={`nav-link tap-scale ${
                 pathname === link.href ||
+                (link.href === "/portfolio" && pathname === "/portfolio") ||
                 (link.href === "/businesses" && isVenturesPath(pathname)) ||
-                (link.href === "/blog" && isJournalPath(pathname))
+                (link.href === "/blog" && isJournalPath(pathname)) ||
+                (link.href === "/recipes" && isRecipesPath(pathname))
                   ? "nav-link-active"
                   : ""
               }`}
@@ -124,23 +131,38 @@ export function Header() {
               {link.label}
             </Link>
           ))}
+
+          <Link
+            href="/contact?type=private-chef"
+            className="btn-primary-solid shrink-0 px-5 py-2.5 text-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-bg"
+          >
+            Book Now
+          </Link>
         </nav>
 
-        <button
-          type="button"
-          className="tap-scale flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-brand-cream md:hidden"
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-expanded={mobileOpen}
-          aria-label="Toggle menu"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-3 md:hidden">
+          <Link
+            href="/contact?type=private-chef"
+            className="btn-primary-solid px-4 py-2 text-[10px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+          >
+            Book
+          </Link>
+          <button
+            type="button"
+            className="tap-scale flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-brand-cream focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-label="Toggle menu"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              {mobileOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       <nav
@@ -148,39 +170,52 @@ export function Header() {
         aria-label="Mobile navigation"
         aria-hidden={!mobileOpen}
       >
-        <div className="min-h-0 overflow-hidden">
-          <div className="flex flex-col gap-1 px-6 py-6">
-            {NAV_LINKS.map((link, i) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`nav-link tap-scale flex items-center gap-3 py-3 transition-all duration-500 ${
-                  pathname === link.href ||
-                  (link.href === "/businesses" && isVenturesPath(pathname)) ||
-                  (link.href === "/blog" && isJournalPath(pathname))
-                    ? "nav-link-active"
-                    : ""
-                }`}
-                style={{ transitionDelay: mobileOpen ? `${i * 40}ms` : "0ms" }}
-                onClick={() => setMobileOpen(false)}
-              >
-                <Icon name={link.icon} size={16} className="text-brand-gold" />
-                {link.label}
-              </Link>
-            ))}
-            <p className="sub-label pt-4 text-brand-text-muted">Services</p>
-            {SERVICE_LINKS.map((link, i) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`nav-link tap-scale flex items-center gap-3 py-3 pl-4 ${pathname === link.href ? "nav-link-active" : ""}`}
-                style={{ transitionDelay: mobileOpen ? `${(NAV_LINKS.length + i) * 40}ms` : "0ms" }}
-                onClick={() => setMobileOpen(false)}
-              >
-                <Icon name={link.icon} size={16} className="text-brand-gold" />
-                {link.label}
-              </Link>
-            ))}
+        <div className="flex min-h-0 flex-col overflow-hidden">
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <div className="flex flex-col gap-1 px-6 py-6">
+              {NAV_LINKS.map((link, i) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-link tap-scale flex items-center gap-3 py-3 transition-all duration-500 ${
+                    pathname === link.href ||
+                    (link.href === "/businesses" && isVenturesPath(pathname)) ||
+                    (link.href === "/blog" && isJournalPath(pathname)) ||
+                    (link.href === "/recipes" && isRecipesPath(pathname))
+                      ? "nav-link-active"
+                      : ""
+                  }`}
+                  style={{ transitionDelay: mobileOpen ? `${i * 40}ms` : "0ms" }}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <Icon name={link.icon} size={16} className="text-brand-gold" />
+                  {link.label}
+                </Link>
+              ))}
+              <p className="sub-label pt-4 text-brand-text-muted">Services</p>
+              {SERVICE_LINKS.map((link, i) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`nav-link tap-scale flex items-center gap-3 py-3 pl-4 ${pathname === link.href ? "nav-link-active" : ""}`}
+                  style={{ transitionDelay: mobileOpen ? `${(NAV_LINKS.length + i) * 40}ms` : "0ms" }}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  <Icon name={link.icon} size={16} className="text-brand-gold" />
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className="shrink-0 border-t border-white/10 bg-brand-surface/95 px-6 py-4">
+            <Link
+              href="/contact?type=private-chef"
+              className="btn-primary-solid flex w-full items-center justify-center gap-2 py-3.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Icon name="chef-hat" size={16} />
+              Book Private Chef
+            </Link>
           </div>
         </div>
       </nav>

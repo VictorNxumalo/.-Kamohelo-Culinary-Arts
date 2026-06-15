@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND } from "@/lib/constants";
 import { showDraftBadge } from "@/lib/content-visibility";
@@ -43,16 +44,12 @@ export default function TechniquesPage() {
           </FadeIn>
           {techniques.length === 0 ? (
             <FadeIn>
-              <div className="card-light mx-auto max-w-xl p-10 text-center">
-                <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
-                  Technique guides are being finalised. Browse the{" "}
-                  <Link href="/recipes" className="text-brand-gold underline underline-offset-4">
-                    recipe library
-                  </Link>{" "}
-                  in the meantime.
-                </p>
-              </div>
+              <ComingSoonCard
+                icon="technique"
+                description="Step-by-step technique guides are being finalised. Browse the recipe library or ask the chef while new content is on the way."
+                primaryCta={{ href: "/contact", label: "Get in Touch" }}
+                secondaryCta={{ href: "/ai", label: "Ask Chef" }}
+              />
             </FadeIn>
           ) : (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

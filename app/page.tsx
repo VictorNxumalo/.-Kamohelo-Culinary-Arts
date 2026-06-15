@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { SectionHeading } from "@/components/SectionHeading";
+import { TrustStrip } from "@/components/TrustStrip";
 import { Icon, IconBox } from "@/components/icons/Icon";
 import { BlogCard } from "@/components/blog/BlogCard";
 import {
@@ -34,7 +35,9 @@ export default function HomePage() {
 
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-20">
           <FadeIn>
-            <p className="sub-label text-brand-gold">Kamohelo Culinary Arts</p>
+            <p className="font-accent text-sm tracking-wide text-brand-gold/90 md:text-base">
+              Kamohelo Culinary Arts
+            </p>
             <h1 className="brand-caps mt-4 text-3xl font-light leading-tight text-brand-cream md:text-4xl lg:text-[2.75rem] lg:leading-tight">
               {BRAND.chef}
             </h1>
@@ -43,14 +46,23 @@ export default function HomePage() {
               {HERO_SUBHEADLINE}
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
-              <Link href="/private-chef" className="btn-primary-solid w-full justify-center sm:w-auto">
+              <Link href="/contact?type=private-chef" className="btn-primary-solid w-full justify-center sm:w-auto">
                 Book Private Chef
               </Link>
               <Link href="/portfolio" className="btn-secondary w-full justify-center sm:w-auto">
-                View Signature Dishes
+                View Portfolio
               </Link>
-              <a href="#services" className="btn-secondary w-full justify-center sm:w-auto">
+              <a
+                href="#services"
+                className="btn-secondary hidden w-full justify-center sm:w-auto md:inline-flex"
+              >
                 Explore Services
+              </a>
+              <a
+                href="#services"
+                className="sub-label mt-1 text-center text-brand-cream-muted underline decoration-brand-gold/30 underline-offset-4 transition-colors hover:text-brand-gold sm:hidden"
+              >
+                Explore Services ↓
               </a>
             </div>
           </FadeIn>
@@ -83,6 +95,8 @@ export default function HomePage() {
         </a>
       </section>
 
+      <TrustStrip />
+
       {/* About preview */}
       <section className="section-light py-20 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
@@ -100,7 +114,7 @@ export default function HomePage() {
             </FadeIn>
             <FadeIn delay={100}>
               <div className="gold-border-accent card-light p-8">
-                <ul className="space-y-4 font-body text-sm font-light text-brand-cream-muted md:text-base">
+                <ul className="body-readable space-y-4">
                   {ABOUT_HIGHLIGHTS.map((item) => (
                     <li key={item.text} className="flex items-start gap-3">
                       <Icon name={item.icon} size={18} className="mt-0.5 shrink-0 text-brand-gold" />
@@ -130,7 +144,7 @@ export default function HomePage() {
                 <>
                   <IconBox name={service.icon} />
                   <h3 className="brand-caps text-sm text-brand-cream">{service.title}</h3>
-                  <p className="mt-3 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
+                  <p className="mt-3 body-readable">
                     {service.description}
                   </p>
                 </>
@@ -211,13 +225,13 @@ export default function HomePage() {
                 <FadeIn key={dish.title} delay={i * 60} subtle>
                   <Link
                     href={href}
-                    className="group relative block aspect-[4/5] overflow-hidden rounded-sm bg-brand-bg shadow-md transition-all duration-500 ease-premium active:scale-[0.98] hover:-translate-y-1 hover:shadow-card-lift"
+                    className="group relative block aspect-[4/5] overflow-hidden rounded-sm border border-transparent bg-brand-bg shadow-md transition-all duration-500 ease-premium active:scale-[0.98] hover:-translate-y-1 hover:border-brand-gold/40 hover:shadow-card-lift"
                   >
                     <Image
                       src={dish.image}
                       alt={dish.title}
                       fill
-                      className="object-cover transition-transform duration-700 group-hover:scale-110"
+                      className="image-card-vignette object-cover transition-transform duration-700 group-hover:scale-110"
                       sizes="(max-width: 768px) 50vw, 33vw"
                     />
                     <figcaption className="image-card-overlay">

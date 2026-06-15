@@ -13,6 +13,21 @@ export const BRAND_STATEMENT =
 export const HERO_SUBHEADLINE =
   "Creating exceptional dining experiences, developing original recipes, and building innovative culinary ventures.";
 
+export const SERVICE_AREA = "Private dining & catering across South Africa";
+
+export const TRUST_STRIP: ReadonlyArray<{ text: string; icon: IconName }> = [
+  { text: "IHS Graduate", icon: "graduation" },
+  { text: "Private Chef", icon: "chef-hat" },
+  { text: "Catering", icon: "events" },
+  { text: "South Africa", icon: "map-pin" },
+];
+
+export const INQUIRY_NEXT_STEPS: ReadonlyArray<{ text: string; icon: IconName }> = [
+  { text: "Response within 24–48 hours", icon: "mail" },
+  { text: "Brief consultation to understand your vision", icon: "message" },
+  { text: "Menu discussion tailored to your occasion", icon: "menu-book" },
+];
+
 export const CONTACT = {
   phone: "+27 083 972 5798",
   email: "hello@kamoheloculinary.co.za",
@@ -162,30 +177,44 @@ export const TIMELINE: ReadonlyArray<{
 export const INQUIRY_TYPES: ReadonlyArray<{
   title: string;
   description: string;
+  headline: string;
+  intro: string;
   icon: IconName;
   type: "private-chef" | "catering" | "consulting" | "general";
 }> = [
   {
     title: "Private Chef",
     description: "In-home dining, romantic dinners, and intimate gatherings.",
+    headline: "Book a Private Chef Experience",
+    intro:
+      "Share your occasion, guest count, and menu preferences. We will craft a bespoke in-home dining proposal.",
     icon: "chef-hat",
     type: "private-chef",
   },
   {
     title: "Catering",
     description: "Weddings, corporate events, and private functions.",
+    headline: "Request Catering for Your Event",
+    intro:
+      "Tell us about your venue, date, and service style. We will respond with a tailored catering quote.",
     icon: "events",
     type: "catering",
   },
   {
     title: "Consulting",
     description: "Menu development, kitchen planning, and culinary strategy.",
+    headline: "Culinary Consulting Inquiry",
+    intro:
+      "Describe your business goals and challenges. We will outline how strategic culinary support can help.",
     icon: "consult",
     type: "consulting",
   },
   {
     title: "General Inquiry",
     description: "Partnerships, media, and other questions.",
+    headline: "Get in Touch",
+    intro:
+      "Whether it is a collaboration, media request, or general question — we are happy to hear from you.",
     icon: "message",
     type: "general",
   },

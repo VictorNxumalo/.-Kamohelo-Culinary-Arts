@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { FadeIn } from "@/components/FadeIn";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 import { BlogGrid } from "@/components/blog/BlogGrid";
 import { BRAND } from "@/lib/constants";
 import { getPublishedPosts } from "@/lib/blog-loader";
@@ -36,12 +37,12 @@ export default function BlogPage() {
             <BlogGrid posts={posts} />
           ) : (
             <FadeIn>
-              <div className="card-light mx-auto max-w-xl p-10 text-center">
-                <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
-                  Journal posts are in preparation. Follow on Instagram for updates.
-                </p>
-              </div>
+              <ComingSoonCard
+                icon="newspaper"
+                description="Journal posts are in preparation — stories from the kitchen, technique insights, and the entrepreneurship journey behind Kamohelo Culinary Group."
+                primaryCta={{ href: "/contact", label: "Get in Touch" }}
+                secondaryCta={{ href: "/ai", label: "Ask Chef" }}
+              />
             </FadeIn>
           )}
         </div>

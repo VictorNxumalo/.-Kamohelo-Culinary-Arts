@@ -3,8 +3,10 @@ import { Cinzel, Inter, Montserrat } from "next/font/google";
 import { Analytics } from "@/components/Analytics";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { NavProvider } from "@/components/layout/NavContext";
 import { PageLoader } from "@/components/PageLoader";
 import { ScrollProgress } from "@/components/ScrollProgress";
+import { StickyBookCta } from "@/components/StickyBookCta";
 import { BRAND, BRAND_STATEMENT } from "@/lib/constants";
 import { DEFAULT_OG_IMAGE, SITE_URL } from "@/lib/site";
 import "./globals.css";
@@ -75,12 +77,15 @@ export default function RootLayout({
       className={`${montserrat.variable} ${inter.variable} ${cinzel.variable}`}
     >
       <body className="min-h-screen font-body">
-        <Analytics />
-        <ScrollProgress />
-        <PageLoader />
-        <Header />
-        <main className="pt-[72px]">{children}</main>
-        <Footer />
+        <NavProvider>
+          <Analytics />
+          <ScrollProgress />
+          <PageLoader />
+          <Header />
+          <main className="pb-20 pt-[72px] md:pb-0">{children}</main>
+          <Footer />
+          <StickyBookCta />
+        </NavProvider>
       </body>
     </html>
   );

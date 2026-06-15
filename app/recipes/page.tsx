@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
+import { ComingSoonCard } from "@/components/ComingSoonCard";
 import { RecipeGrid } from "@/components/recipes/RecipeGrid";
 import { BRAND } from "@/lib/constants";
 import { getPublishedRecipes } from "@/lib/recipes-loader";
@@ -37,16 +38,12 @@ export default function RecipesPage() {
             <RecipeGrid recipes={recipes} />
           ) : (
             <FadeIn>
-              <div className="card-light mx-auto max-w-xl p-10 text-center">
-                <p className="sub-label text-brand-gold">Coming Soon</p>
-                <p className="mt-4 font-body text-sm font-light text-brand-cream-muted">
-                  Recipes are being finalised by the chef. Check back soon or explore the{" "}
-                  <Link href="/portfolio" className="text-brand-gold underline underline-offset-4">
-                    culinary portfolio
-                  </Link>
-                  .
-                </p>
-              </div>
+              <ComingSoonCard
+                icon="recipe"
+                description="Signature recipes are being finalised by the chef. In the meantime, explore the portfolio or get in touch to discuss a private dining experience."
+                primaryCta={{ href: "/contact", label: "Get in Touch" }}
+                secondaryCta={{ href: "/ai", label: "Ask Chef" }}
+              />
             </FadeIn>
           )}
         </div>

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { FormSection } from "@/components/forms/FormSection";
 import { FeatureCard } from "@/components/ui/FeatureCard";
+import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND } from "@/lib/constants";
 import { CONSULTING_SERVICES } from "@/lib/services-content";
@@ -18,6 +19,13 @@ export default function ConsultingPage() {
       <section className="section-dark py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6">
           <FadeIn>
+            <Breadcrumbs
+              items={[
+                { label: "Home", href: "/" },
+                { label: "Services", href: "/consulting" },
+                { label: "Consulting" },
+              ]}
+            />
             <p className="sub-label text-brand-gold">Services</p>
             <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
               Culinary Consulting
