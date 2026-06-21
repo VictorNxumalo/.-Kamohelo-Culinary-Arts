@@ -73,7 +73,7 @@ export default function ConceptsPage() {
               <Link href="/businesses" className="btn-primary-solid">
                 View All Businesses
               </Link>
-              <Link href="/contact?type=general" className="btn-primary border-brand-gold text-brand-gold">
+              <Link href="/contact?type=general" className="btn-primary">
                 Partnership Inquiry
               </Link>
             </div>

@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { FadeIn } from "@/components/FadeIn";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
 import { BlogGrid } from "@/components/blog/BlogGrid";
+import { MotionHero } from "@/components/motion/MotionHero";
 import { BRAND } from "@/lib/constants";
 import { getPublishedPosts } from "@/lib/blog-loader";
+import { MOTION_HEROES } from "@/lib/motion";
 
 export const metadata: Metadata = {
   title: "Journal — Blog & Insights",
@@ -15,21 +17,19 @@ export default function BlogPage() {
 
   return (
     <>
-      <section className="section-dark py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <FadeIn>
-            <p className="sub-label text-brand-gold">Blog & Insights</p>
-            <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
-              Journal
-            </h1>
-            <div className="gold-rule mt-6" />
-            <p className="mt-6 max-w-3xl font-body text-lg font-light leading-relaxed text-brand-cream-muted">
-              Stories from the kitchen, technique insights, menu development thinking, and the
-              entrepreneurship journey behind Kamohelo Culinary Group.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <MotionHero config={MOTION_HEROES.journal} size="tall">
+        <FadeIn>
+          <p className="sub-label text-brand-gold">Blog & Insights</p>
+          <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
+            Journal
+          </h1>
+          <div className="gold-rule mt-6" />
+          <p className="mt-6 max-w-3xl font-body text-lg font-light leading-relaxed text-brand-cream-muted">
+            Stories from the kitchen, technique insights, menu development thinking, and the
+            entrepreneurship journey behind Kamohelo Culinary Group.
+          </p>
+        </FadeIn>
+      </MotionHero>
 
       <section className="section-light py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6">

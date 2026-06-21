@@ -51,7 +51,7 @@ export function GalleryGrid({ items = GALLERY_ITEMS }: GalleryGridProps) {
             <button
               type="button"
               onClick={() => handleFilterChange("all")}
-              className="btn-primary mt-6 border-brand-gold text-brand-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+              className="btn-primary mt-6 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
             >
               View All Creations
             </button>

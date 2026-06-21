@@ -73,7 +73,7 @@ export default function BusinessesPage() {
                   Brick-and-mortar restaurant concepts are in early development. Explore our ghost
                   kitchen brands below or view the full concepts showcase.
                 </p>
-                <Link href="/concepts" className="btn-primary mt-8 border-brand-gold text-brand-gold">
+                <Link href="/concepts" className="btn-primary mt-8">
                   View Culinary Concepts
                 </Link>
               </div>
@@ -172,7 +172,7 @@ export default function BusinessesPage() {
             ))}
           </div>
           <FadeIn className="mt-12 text-center">
-            <Link href="/contact?type=general" className="btn-primary border-brand-gold text-brand-gold">
+            <Link href="/contact?type=general" className="btn-primary">
               Discuss Partnership Opportunities
             </Link>
           </FadeIn>

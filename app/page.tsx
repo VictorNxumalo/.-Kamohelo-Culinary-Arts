@@ -35,7 +35,7 @@ export default function HomePage() {
 
         <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-16 md:grid-cols-2 md:py-20">
           <FadeIn>
-            <p className="font-accent text-sm tracking-wide text-brand-gold/90 md:text-base">
+            <p className="font-accent text-metallic-gold text-sm tracking-wide">
               Kamohelo Culinary Arts
             </p>
             <h1 className="brand-caps mt-4 text-3xl font-light leading-tight text-brand-cream md:text-4xl lg:text-[2.75rem] lg:leading-tight">
@@ -80,7 +80,7 @@ export default function HomePage() {
                 />
               </div>
               <div className="card-dark absolute -bottom-4 -right-2 px-6 py-4 shadow-gold-sm md:-right-4">
-                <p className="brand-caps text-xl text-brand-gold">IHS</p>
+                <p className="brand-caps text-xl text-metallic-gold">IHS</p>
                 <p className="sub-label mt-1 text-brand-cream-muted">Graduate</p>
               </div>
             </div>
@@ -108,7 +108,7 @@ export default function HomePage() {
                 description={BRAND_STATEMENT}
                 align="left"
               />
-              <Link href="/about" className="btn-primary mt-4 border-brand-gold text-brand-gold hover:bg-brand-gold hover:text-white">
+              <Link href="/about" className="btn-primary mt-4">
                 Learn More About Me
               </Link>
             </FadeIn>
@@ -243,7 +243,7 @@ export default function HomePage() {
             })}
           </div>
           <FadeIn className="mt-10 text-center">
-            <Link href="/portfolio" className="btn-primary border-brand-gold text-brand-gold">
+            <Link href="/portfolio" className="btn-primary">
               View Culinary Portfolio
             </Link>
           </FadeIn>
@@ -327,7 +327,7 @@ export default function HomePage() {
             ))}
           </div>
           <FadeIn className="mt-10 text-center">
-            <Link href="/blog" className="btn-primary border-brand-gold text-brand-gold">
+            <Link href="/blog" className="btn-primary">
               Read the Journal
             </Link>
           </FadeIn>

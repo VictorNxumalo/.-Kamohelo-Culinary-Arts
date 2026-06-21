@@ -227,7 +227,7 @@ export default function CraftPage() {
                     href={EDUCATION.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary mt-6 inline-flex border-brand-gold text-brand-gold"
+                    className="btn-primary mt-6 inline-flex"
                   >
                     Discover International Hotel School
                   </a>
@@ -252,7 +252,7 @@ export default function CraftPage() {
                 <Icon name="chef-hat" size={16} />
                 Book a Culinary Experience
               </Link>
-              <Link href="/portfolio" className="btn-primary border-brand-gold text-brand-gold">
+              <Link href="/portfolio" className="btn-primary">
                 Return to Portfolio
               </Link>
             </div>

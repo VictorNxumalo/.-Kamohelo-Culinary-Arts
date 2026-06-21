@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { ComingSoonCard } from "@/components/ComingSoonCard";
+import { MotionHero } from "@/components/motion/MotionHero";
 import { RecipeGrid } from "@/components/recipes/RecipeGrid";
 import { BRAND } from "@/lib/constants";
+import { MOTION_HEROES } from "@/lib/motion";
 import { getPublishedRecipes } from "@/lib/recipes-loader";
 
 export const metadata: Metadata = {
@@ -16,21 +18,19 @@ export default function RecipesPage() {
 
   return (
     <>
-      <section className="section-dark py-16 md:py-24">
-        <div className="mx-auto max-w-6xl px-6">
-          <FadeIn>
-            <p className="sub-label text-brand-gold">Recipe Development Lab</p>
-            <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
-              Recipe Library
-            </h1>
-            <div className="gold-rule mt-6" />
-            <p className="mt-6 max-w-3xl font-body text-lg font-light leading-relaxed text-brand-cream-muted">
-              Original recipes developed in the kitchen — from fine dining mains to comfort classics.
-              Filter by category or explore the technique library for foundational skills.
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+      <MotionHero config={MOTION_HEROES.recipes} size="tall">
+        <FadeIn>
+          <p className="sub-label text-brand-gold">Recipe Development Lab</p>
+          <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
+            Recipe Library
+          </h1>
+          <div className="gold-rule mt-6" />
+          <p className="mt-6 max-w-3xl font-body text-lg font-light leading-relaxed text-brand-cream-muted">
+            Original recipes developed in the kitchen — from fine dining mains to comfort classics.
+            Filter by category or explore the technique library for foundational skills.
+          </p>
+        </FadeIn>
+      </MotionHero>
 
       <section className="section-light py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6">

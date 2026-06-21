@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { MotionHero } from "@/components/motion/MotionHero";
 import { BRAND } from "@/lib/constants";
 import { GALLERY_ITEMS } from "@/lib/gallery";
+import { MOTION_HEROES } from "@/lib/motion";
 
 export const metadata: Metadata = {
   title: "Culinary Portfolio",
@@ -17,40 +18,31 @@ const FEATURED_ITEM = GALLERY_ITEMS.find((item) => item.featured) ?? GALLERY_ITE
 export default function PortfolioPage() {
   return (
     <>
-      <section className="section-dark relative min-h-[50vh] overflow-hidden py-20 md:min-h-[55vh] md:py-28">
-        <div className="absolute inset-0">
-          <Image
-            src={FEATURED_ITEM.image}
-            alt=""
-            fill
-            className="object-cover"
-            sizes="100vw"
-            priority
+      <MotionHero
+        config={{
+          ...MOTION_HEROES.portfolio,
+          poster: FEATURED_ITEM.image,
+        }}
+        size="cinematic"
+      >
+        <FadeIn>
+          <Breadcrumbs
+            items={[
+              { label: "Home", href: "/" },
+              { label: "Portfolio" },
+            ]}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-brand-bg via-brand-bg/75 to-brand-bg/40" />
-        </div>
-        <div className="relative mx-auto flex min-h-[40vh] max-w-6xl flex-col justify-end px-6">
-          <FadeIn>
-            <Breadcrumbs
-              items={[
-                { label: "Home", href: "/" },
-                { label: "Portfolio" },
-              ]}
-            />
-            <p className="sub-label text-brand-gold">Signature Creations</p>
-            <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
-              Culinary Portfolio
-            </h1>
-            <div className="gold-rule mt-6" />
-            <p className="mt-6 max-w-2xl font-body text-base font-light leading-relaxed text-brand-cream-muted md:text-lg">
-              A visual journey through culinary creations — technique, artistry, and passion on every plate.
-            </p>
-            <p className="mt-4 sub-label text-brand-cream-muted">
-              Featured: {FEATURED_ITEM.title}
-            </p>
-          </FadeIn>
-        </div>
-      </section>
+          <p className="sub-label text-brand-gold">Signature Creations</p>
+          <h1 className="brand-caps mt-4 text-3xl font-light text-brand-cream md:text-4xl lg:text-5xl">
+            Culinary Portfolio
+          </h1>
+          <div className="gold-rule mt-6" />
+          <p className="mt-6 max-w-2xl font-body text-base font-light leading-relaxed text-brand-cream-muted md:text-lg">
+            A visual journey through culinary creations — technique, artistry, and passion on every plate.
+          </p>
+          <p className="mt-4 sub-label text-brand-cream-muted">Featured: {FEATURED_ITEM.title}</p>
+        </FadeIn>
+      </MotionHero>
 
       <section className="section-light py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-6">

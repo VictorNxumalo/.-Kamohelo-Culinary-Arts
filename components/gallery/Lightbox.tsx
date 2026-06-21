@@ -137,7 +137,7 @@ export function Lightbox({ items, index, onClose, onNavigate }: LightboxProps) {
           {recipeSlug && (
             <Link
               href={`/recipes/${recipeSlug}`}
-              className="btn-primary mt-5 inline-flex items-center gap-2 border-brand-gold text-brand-gold text-xs"
+              className="btn-primary mt-5 inline-flex items-center gap-2 text-xs"
             >
               View Recipe
             </Link>

@@ -39,7 +39,7 @@ export function GalleryCard({ item, onClick }: GalleryCardProps) {
           </div>
         </div>
         {item.featured && (
-          <span className="absolute right-3 top-3 bg-brand-gold px-3 py-1 font-display text-[10px] uppercase tracking-wide text-brand-bg shadow-gold-sm">
+          <span className="absolute right-3 top-3 bg-[image:var(--metal-gold-fill)] px-3 py-1 font-display text-[10px] uppercase tracking-wide text-[#1a1410] shadow-gold-sm">
             Featured
           </span>
         )}

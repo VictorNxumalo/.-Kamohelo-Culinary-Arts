@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FadeIn } from "@/components/FadeIn";
 import { Icon, IconBox } from "@/components/icons/Icon";
+import { ExperienceTimeline } from "@/components/about/ExperienceTimeline";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { SectionHeading } from "@/components/SectionHeading";
 import { BRAND, BRAND_STATEMENT, EDUCATION, TIMELINE } from "@/lib/constants";
@@ -129,7 +130,7 @@ export default function AboutPage() {
                     href={EDUCATION.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="btn-primary mt-8 inline-flex items-center gap-2 border-brand-gold text-brand-gold"
+                    className="btn-primary mt-8 inline-flex items-center gap-2"
                   >
                     Discover International Hotel School
                     <Icon name="external" size={14} />
@@ -142,38 +143,17 @@ export default function AboutPage() {
       </section>
 
       {/* Timeline */}
-      <section className="section-light py-20 md:py-24">
+      <section className="section-dark border-t border-white/5 py-20 md:py-28">
         <div className="mx-auto max-w-3xl px-6">
           <FadeIn>
             <SectionHeading
               eyebrow="Experience"
               title="Professional Timeline"
-              description="Education, kitchen experience, and entrepreneurial development."
+              description="Education, kitchen experience, and entrepreneurial development — a journey in motion."
+              dark
             />
           </FadeIn>
-          <div className="space-y-10 border-l border-brand-gold/30 pl-8">
-            {TIMELINE.map((item, i) => (
-              <FadeIn key={item.title} delay={i * 80}>
-                <article className="timeline-dot relative">
-                  <div className="card-light p-6">
-                    <div className="flex flex-wrap items-start justify-between gap-2">
-                      <div className="flex items-start gap-4">
-                        <IconBox name={item.icon} className="mb-0 h-10 w-10" size={18} />
-                        <div>
-                        <h3 className="brand-caps text-sm text-brand-cream">{item.title}</h3>
-                        <p className="mt-1 font-body text-sm font-medium text-brand-gold">{item.org}</p>
-                        </div>
-                      </div>
-                      <span className="sub-label text-brand-text-muted">{item.period}</span>
-                    </div>
-                    <p className="mt-4 font-body text-sm font-light leading-relaxed text-brand-cream-muted">
-                      {item.description}
-                    </p>
-                  </div>
-                </article>
-              </FadeIn>
-            ))}
-          </div>
+          <ExperienceTimeline items={TIMELINE} />
         </div>
       </section>
 
